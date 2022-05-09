@@ -1,0 +1,9 @@
+.plus-fluctuation{
+     -fx-text-fill: red;
+     -fx-font: 20 arial;
+}
+
+.minus-fluctuation{
+     -fx-text-fill: blue;
+}
+
