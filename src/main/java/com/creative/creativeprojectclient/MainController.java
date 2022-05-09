@@ -67,6 +67,7 @@ public class MainController implements Initializable {
             packet = (Packet)is.readObject();
         }catch(Exception e){
             e.printStackTrace();
+
             throw new RuntimeException();
         }
         return packet;

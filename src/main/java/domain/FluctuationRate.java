@@ -12,26 +12,28 @@ import java.io.Serializable;
 public class FluctuationRate implements Serializable,Comparable<FluctuationRate> {
     private String regionName;
     private String regionalCode;
-    private float fluctuationLateData;
+    private float fluctuationRateData;
     private int population;
-    private int price;
+    private int fluctuationPrice;
+    private int averagePrice;
 
-    public FluctuationRate(String regionalCode, float fluctuationLateData, int price) {
+    public FluctuationRate(String regionalCode, float fluctuationLateData, int fluctuationPrice, int averagePrice) {
         this.regionalCode = regionalCode;
-        this.fluctuationLateData = fluctuationLateData;
-        this.price = price;
+        this.fluctuationRateData = fluctuationLateData;
+        this.fluctuationPrice = fluctuationPrice;
+        this.averagePrice = averagePrice;
     }
 
     @Override
     public int compareTo(FluctuationRate o) {
-        if(this.fluctuationLateData>o.fluctuationLateData){
+        if(this.fluctuationRateData >o.fluctuationRateData){
             return -1;
         }
-        if(this.fluctuationLateData==o.fluctuationLateData){
-            if(price>o.price){
+        if(this.fluctuationRateData ==o.fluctuationRateData){
+            if(fluctuationPrice >o.fluctuationPrice){
                 return -1;
             }
-            else if(price==o.price){
+            else if(fluctuationPrice ==o.fluctuationPrice){
                 return 0;
             }
             else{
