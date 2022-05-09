@@ -38,6 +38,7 @@ public class MainController implements Initializable {
             AnchorPane std = fxmlLoader.load();
             Func1_1Controller controller = fxmlLoader.getController();
             controller.setMainController(this);
+            controller.showRegionalEstateAvgData();//1.1기능 실행
 
             panel.getChildren().setAll(std);
 
