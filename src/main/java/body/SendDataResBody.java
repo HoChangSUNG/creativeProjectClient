@@ -1,7 +1,7 @@
 package body;
 
 import domain.AverageData;
-import domain.FluctuationLate;
+import domain.FluctuationRate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,5 +16,5 @@ import java.util.List;
 @Setter
 public class SendDataResBody implements Serializable {
     private List<AverageData> averageDataList;
-    private  List<FluctuationLate> fluctuationLateList;
+    private  List<FluctuationRate> fluctuationLateList;
 }

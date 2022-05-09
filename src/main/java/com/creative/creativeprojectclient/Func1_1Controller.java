@@ -1,18 +1,14 @@
 package com.creative.creativeprojectclient;
 
-import body.SendDataResBody;
 import com.creative.creativeprojectclient.datamodel.Func1_1TableRowModel;
-import domain.FluctuationLate;
+import domain.FluctuationRate;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import network.Packet;
 import network.ProtocolType;
@@ -141,13 +137,14 @@ public class Func1_1Controller implements Initializable {
         mainController.writePacket(packet);
 
         Packet sendPacket = mainController.readPacket();
-        List<FluctuationLate> data = (List<FluctuationLate>)sendPacket.getBody();
+        List<FluctuationRate> data = (List<FluctuationRate>)sendPacket.getBody();
 
         ObservableList<Func1_1TableRowModel> myList = FXCollections.observableArrayList();
 
         for (int i=0;i<data.size();i++){
+            System.out.println(data.get(i));
             SimpleStringProperty regionName = new SimpleStringProperty(data.get(i).getRegionName());
-            SimpleStringProperty fluctuationLate = new SimpleStringProperty(String.valueOf(data.get(i).getFluctuationLateData()));
+            SimpleStringProperty fluctuationLate = new SimpleStringProperty(String.format("%.2f",data.get(i).getFluctuationLateData()));
             SimpleStringProperty averagePrice = new SimpleStringProperty(String.valueOf(data.get(i).getPrice()));
             SimpleStringProperty population = new SimpleStringProperty(String.valueOf(data.get(i).getPopulation()));
             myList.add((new Func1_1TableRowModel(regionName,fluctuationLate,averagePrice,population)));
