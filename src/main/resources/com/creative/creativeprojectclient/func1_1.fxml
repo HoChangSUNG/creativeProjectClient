@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../style/func1_1Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.creative.creativeprojectclient.Func1_1Controller">
+<AnchorPane fx:id="panel" prefHeight="850.0" prefWidth="1300.0" stylesheets="@../style/func1_1Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.creative.creativeprojectclient.Func1_1Controller">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="193.0" layoutY="48.0" prefHeight="40.0" prefWidth="1000.0" text="1-1. 실거래가 기준 지역별 부동산의 평균 가격과 가격 등락폭, 인구수 제공">
          <font>
@@ -24,31 +24,31 @@
 
       <TableView fx:id="apartment" layoutX="274.0" layoutY="118.0" prefHeight="199.0" prefWidth="878.0">
          <columns>
-            <TableColumn fx:id="regionNameColumnApt" prefWidth="356.0" text="지역이름" />
-            <TableColumn fx:id="fluctuationRateColumnApt" prefWidth="202.0" text="등락폭(%)(등락가격)" />
-            <TableColumn fx:id="avgPriceColumnApt" prefWidth="155.0" text="평균가격(만원)" />
-            <TableColumn fx:id="populationColumnApt" prefWidth="164.0" text="인구수" />
+            <TableColumn fx:id="regionNameColumnApt" prefWidth="356.0" styleClass="font-size" text="지역이름" />
+            <TableColumn fx:id="fluctuationRateColumnApt" prefWidth="202.0" styleClass="font-size" text="등락폭(등락가격)" />
+            <TableColumn fx:id="avgPriceColumnApt" prefWidth="155.0" styleClass="font-size" text="평균가격(만원)" />
+            <TableColumn fx:id="populationColumnApt" prefWidth="164.0" styleClass="font-size" text="인구수" />
          </columns>
       </TableView>
       <TableView fx:id="rowhouse" layoutX="274.0" layoutY="354.0" prefHeight="199.0" prefWidth="878.0">
          <columns>
-            <TableColumn fx:id="regionNameColumnRow" prefWidth="356.0" text="지역이름" />
-            <TableColumn fx:id="fluctuationRateColumnRow" prefWidth="202.0" text="등락폭(%)(등락가격)" />
-            <TableColumn fx:id="avgPriceColumnRow" prefWidth="155.0" text="평균가격(만원)" />
-            <TableColumn fx:id="populationColumnRow" prefWidth="164.0" text="인구수" />
+            <TableColumn fx:id="regionNameColumnRow" prefWidth="356.0" styleClass="font-size" text="지역이름" />
+            <TableColumn fx:id="fluctuationRateColumnRow" prefWidth="202.0" styleClass="font-size" text="등락폭(등락가격)" />
+            <TableColumn fx:id="avgPriceColumnRow" prefWidth="155.0" styleClass="font-size" text="평균가격(만원)" />
+            <TableColumn fx:id="populationColumnRow" prefWidth="164.0" styleClass="font-size" text="인구수" />
          </columns>
       </TableView>
       <TableView fx:id="detachedHouse" layoutX="274.0" layoutY="587.0" prefHeight="199.0" prefWidth="878.0">
          <columns>
-            <TableColumn fx:id="regionNameColumnDetach" prefWidth="356.0" text="지역이름" />
-            <TableColumn fx:id="fluctuationRateColumnDetach" prefWidth="202.0" text="등락폭(%)(등락가격)" />
-            <TableColumn fx:id="avgPriceColumnDetach" prefWidth="155.0" text="평균가격(만원)" />
-            <TableColumn fx:id="populationColumnDetach" prefWidth="164.0" text="인구수" />
+            <TableColumn fx:id="regionNameColumnDetach" prefWidth="356.0" styleClass="font-size" text="지역이름" />
+            <TableColumn fx:id="fluctuationRateColumnDetach" prefWidth="202.0" styleClass="font-size" text="등락폭(등락가격)" />
+            <TableColumn fx:id="avgPriceColumnDetach" prefWidth="155.0" styleClass="font-size" text="평균가격(만원)" />
+            <TableColumn fx:id="populationColumnDetach" prefWidth="164.0" styleClass="font-size" text="인구수" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="154.0" layoutY="147.0" prefHeight="34.0" prefWidth="112.0" text="아파트 등락폭" />
-      <Label alignment="CENTER" layoutX="137.0" layoutY="373.0" prefHeight="34.0" prefWidth="112.0" text="연립다세대  등락폭" />
-      <Label alignment="CENTER" layoutX="137.0" layoutY="600.0" prefHeight="34.0" prefWidth="119.0" text=" 단독/다세대  등락폭" />
+      <Label alignment="CENTER" layoutX="96.0" layoutY="147.0" prefHeight="34.0" prefWidth="170.0" style="-fx-font-size: 20;" text="아파트 등락폭" />
+      <Label alignment="CENTER" layoutX="79.0" layoutY="373.0" prefHeight="34.0" prefWidth="183.0" styleClass="font-size" text="연립다세대  등락폭" />
+      <Label alignment="CENTER" layoutX="65.0" layoutY="600.0" prefHeight="34.0" prefWidth="191.0" styleClass="font-size" text=" 단독/다세대  등락폭" />
 
 
    </children>
