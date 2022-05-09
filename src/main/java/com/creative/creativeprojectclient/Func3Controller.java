@@ -1,7 +1,5 @@
 package com.creative.creativeprojectclient;
 
-import dto.AdminTestDTO;
-import dto.StudentTestDTO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import network.Packet;
 import network.ProtocolType;
-import network.protocolCode.RealEstateInfoCode;
 import network.protocolCode.RealEstateRecommendCode;
 
 import java.net.URL;
@@ -34,9 +31,9 @@ public class Func3Controller implements Initializable {
 
     public void moveToFunc1Controller(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1_1.fxml"));
             AnchorPane std = fxmlLoader.load();
-            Func1Controller controller = fxmlLoader.getController();
+            Func1_1Controller controller = fxmlLoader.getController();
             controller.setMainController(mainController);
 
             panel.getChildren().setAll(std);

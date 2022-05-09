@@ -28,15 +28,15 @@ public class MainController implements Initializable {
         
         //첫번째 기능으로 이동
 
-        moveToFunc1Controller();
+        moveToFunc1_1Controller();
 
     }
 
-    public void moveToFunc1Controller(){
+    public void moveToFunc1_1Controller(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1_1.fxml"));
             AnchorPane std = fxmlLoader.load();
-            Func1Controller controller = fxmlLoader.getController();
+            Func1_1Controller controller = fxmlLoader.getController();
             controller.setMainController(this);
 
             panel.getChildren().setAll(std);
