@@ -1,11 +1,4 @@
-.plus-fluctuation{
-     -fx-text-fill: red;
+
+.font-size{
      -fx-font: 20 arial;
 }
-
-.minus-fluctuation{
-     -fx-text-fill: blue;
-     -fx-font: 20 arial;
-
-}
-

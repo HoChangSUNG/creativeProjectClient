@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import network.Packet;
 import network.ProtocolType;
@@ -162,15 +163,9 @@ public class Func1_1Controller implements Initializable {
         showApt(data.getApartmentFluctuationRate());
         showRowHouse(data.getRowhouseFluctuationRate());
         showDetached(data.getDetachedhouseFluctuationRate());
-
-        System.out.println("apt"+data.getApartmentFluctuationRate().size());
-        System.out.println("showRowHouse"+data.getRowhouseFluctuationRate().size());
-        System.out.println("showRowHouse"+data.getDetachedhouseFluctuationRate().size());
-
-
-        //패킷 받고 나눠라
     }
     public void showApt(List<FluctuationRate> data){ //아파트 표 출력
+
         regionNameColumnApt.setCellValueFactory(cellData->cellData.getValue().regionNameProperty());
         fluctuationRateColumnApt.setCellValueFactory(cellData->cellData.getValue().fluctuationRateProperty());
         avgPriceColumnApt.setCellValueFactory(cellData->cellData.getValue().avgPriceProperty());
@@ -203,13 +198,15 @@ public class Func1_1Controller implements Initializable {
                                     .get(currentIndex).fluctuationRateProperty().getValue();
 
                             if (fluctuationRate.substring(0,1).equals("-")) {
-//                                setTextFill(Color.BLUE);
-                                getStyleClass().add("minus-fluctuation");
-                                setText(fluctuationRate+"("+data.get(currentIndex).getFluctuationPrice()+")");
+                                setTextFill(Color.BLUE);
+//                                getStyleClass().add("minus-fluctuation");
+                                setText(fluctuationRate+"%("+data.get(currentIndex).getFluctuationPrice()+")");
                             }
                             else{
-                                getStyleClass().add("plus-fluctuation");
-                                setText("+"+fluctuationRate+"("+data.get(currentIndex).getFluctuationPrice()+")");
+                                setTextFill(Color.RED);
+
+//                                getStyleClass().add("plus-fluctuation");
+                                setText("+"+fluctuationRate+"%("+data.get(currentIndex).getFluctuationPrice()+")");
 
                             }
                         }
@@ -253,13 +250,14 @@ public class Func1_1Controller implements Initializable {
                                     .get(currentIndex).fluctuationRateProperty().getValue();
 
                             if (fluctuationRate.substring(0,1).equals("-")) {
-//                                setTextFill(Color.BLUE);
-                                getStyleClass().add("minus-fluctuation");
-                                setText(fluctuationRate+"("+data.get(currentIndex).getFluctuationPrice()+")");
+                                setTextFill(Color.BLUE);
+                                setText(fluctuationRate+"%("+data.get(currentIndex).getFluctuationPrice()+")");
                             }
                             else{
-                                getStyleClass().add("plus-fluctuation");
-                                setText(fluctuationRate+"("+data.get(currentIndex).getFluctuationPrice()+")");
+                                setTextFill(Color.RED);
+//                                getStyleClass().add("plus-fluctuation");
+                                setText("+"+fluctuationRate+"%("+data.get(currentIndex).getFluctuationPrice()+")");
+
                             }
                         }
                     }
@@ -267,7 +265,7 @@ public class Func1_1Controller implements Initializable {
             }
         });
 
-        apartment.setItems(myList);
+        rowhouse.setItems(myList);
 
     }
 
@@ -303,13 +301,14 @@ public class Func1_1Controller implements Initializable {
                                     .get(currentIndex).fluctuationRateProperty().getValue();
 
                             if (fluctuationRate.substring(0,1).equals("-")) {
-//                                setTextFill(Color.BLUE);
+                                setTextFill(Color.BLUE);
                                 getStyleClass().add("minus-fluctuation");
-                                setText(fluctuationRate+"("+data.get(currentIndex).getFluctuationPrice()+")");
+                                setText(fluctuationRate+"%("+data.get(currentIndex).getFluctuationPrice()+")");
                             }
                             else{
-                                getStyleClass().add("plus-fluctuation");
-                                setText(fluctuationRate+"("+data.get(currentIndex).getFluctuationPrice()+")");
+                                setTextFill(Color.RED);
+//                                getStyleClass().add("plus-fluctuation");
+                                setText("+"+fluctuationRate+"%("+data.get(currentIndex).getFluctuationPrice()+")");
 
                             }
                         }
@@ -318,7 +317,7 @@ public class Func1_1Controller implements Initializable {
             }
         });
 
-        apartment.setItems(myList);
+        detachedHouse.setItems(myList);
 
     }
 }
