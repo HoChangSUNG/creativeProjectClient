@@ -1,6 +1,8 @@
 package com.creative.creativeprojectclient;
 
+import body.SendDataResBody;
 import com.creative.creativeprojectclient.datamodel.Func1_1TableRowModel;
+import domain.FluctuationLate;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
@@ -21,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import network.protocolCode.RealEstateInfoCode;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Func1_1Controller implements Initializable {
@@ -49,16 +52,17 @@ public class Func1_1Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        showRegionalEstateAvgData();
+
     }
 
     @FXML
-    public void moveToFunc1Controller(){
+    public void moveToFunc1_1Controller(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1_1.fxml"));
             AnchorPane std = fxmlLoader.load();
             Func1_1Controller controller = fxmlLoader.getController();
             controller.setMainController(mainController);
+            controller.showRegionalEstateAvgData();
 
             panel.getChildren().setAll(std);
 
@@ -130,26 +134,45 @@ public class Func1_1Controller implements Initializable {
         avgPriceColumn.setCellValueFactory(cellData->cellData.getValue().avgPriceProperty());
         populationColumn.setCellValueFactory(cellData->cellData.getValue().populationProperty());
 
-        ObservableList<Func1_1TableRowModel> myList = FXCollections.observableArrayList(
-                new Func1_1TableRowModel(new SimpleStringProperty("Jin Seong"), new SimpleStringProperty("1"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Jang Ho"), new SimpleStringProperty("-2"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Sung Bin"), new SimpleStringProperty("3"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Key Hwang"), new SimpleStringProperty("-4"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Seong Woo"), new SimpleStringProperty("5"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("I kyun"), new SimpleStringProperty("-6"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Jin Seong"), new SimpleStringProperty("7"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Jang Ho"), new SimpleStringProperty("-8"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Sung Bin"), new SimpleStringProperty("9"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Key Hwang"), new SimpleStringProperty("-10"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Seong Woo"), new SimpleStringProperty("11"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("I kyun"), new SimpleStringProperty("-12"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Jin Seong"), new SimpleStringProperty("13"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Jang Ho"), new SimpleStringProperty("-14"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Sung Bin"), new SimpleStringProperty("15"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Key Hwang"), new SimpleStringProperty("-16"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("Seong Woo"), new SimpleStringProperty("17"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
-                new Func1_1TableRowModel(new SimpleStringProperty("I kyun"), new SimpleStringProperty("-18"), new SimpleStringProperty("male"), new SimpleStringProperty("male"))
-        );
+
+        Packet packet = new Packet();
+        packet.setProtocolType(ProtocolType.REAL_ESTATE_INFO.getType());
+        packet.setProtocolCode(RealEstateInfoCode.SEND_DATA_REQ.getCode());
+        mainController.writePacket(packet);
+
+        Packet sendPacket = mainController.readPacket();
+        List<FluctuationLate> data = (List<FluctuationLate>)sendPacket.getBody();
+
+        ObservableList<Func1_1TableRowModel> myList = FXCollections.observableArrayList();
+
+        for (int i=0;i<data.size();i++){
+            SimpleStringProperty regionName = new SimpleStringProperty(data.get(i).getRegionName());
+            SimpleStringProperty fluctuationLate = new SimpleStringProperty(String.valueOf(data.get(i).getFluctuationLateData()));
+            SimpleStringProperty averagePrice = new SimpleStringProperty(String.valueOf(data.get(i).getPrice()));
+            SimpleStringProperty population = new SimpleStringProperty(String.valueOf(data.get(i).getPopulation()));
+            myList.add((new Func1_1TableRowModel(regionName,fluctuationLate,averagePrice,population)));
+        }
+
+//        ObservableList<Func1_1TableRowModel> myList = FXCollections.observableArrayList(
+//                new Func1_1TableRowModel(new SimpleStringProperty("Jin Seong"), new SimpleStringProperty("1"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Jang Ho"), new SimpleStringProperty("-2"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Sung Bin"), new SimpleStringProperty("3"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Key Hwang"), new SimpleStringProperty("-4"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Seong Woo"), new SimpleStringProperty("5"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("I kyun"), new SimpleStringProperty("-6"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Jin Seong"), new SimpleStringProperty("7"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Jang Ho"), new SimpleStringProperty("-8"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Sung Bin"), new SimpleStringProperty("9"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Key Hwang"), new SimpleStringProperty("-10"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Seong Woo"), new SimpleStringProperty("11"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("I kyun"), new SimpleStringProperty("-12"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Jin Seong"), new SimpleStringProperty("13"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Jang Ho"), new SimpleStringProperty("-14"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Sung Bin"), new SimpleStringProperty("15"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Key Hwang"), new SimpleStringProperty("-16"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("Seong Woo"), new SimpleStringProperty("17"), new SimpleStringProperty("male"), new SimpleStringProperty("male")),
+//                new Func1_1TableRowModel(new SimpleStringProperty("I kyun"), new SimpleStringProperty("-18"), new SimpleStringProperty("male"), new SimpleStringProperty("male"))
+//        );
 
 
 
@@ -167,13 +190,12 @@ public class Func1_1Controller implements Initializable {
                                     .getTableView().getItems()
                                     .get(currentIndex).fluctuationRateProperty().getValue();
 
-                            System.out.println(fluctuationRate);
                             if (fluctuationRate.substring(0,1).equals("-")) {
-                                setTextFill(Color.BLUE);
+//                                setTextFill(Color.BLUE);
+                                getStyleClass().add("minus-fluctuation");
                                 setText(fluctuationRate);
                             }
                             else{
-//                                setTextFill(Color.RED);
                                 getStyleClass().add("plus-fluctuation");
                                 setText("+"+fluctuationRate);
 
