@@ -9,21 +9,21 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class FluctuationLate implements Serializable,Comparable<FluctuationLate> {
+public class FluctuationRate implements Serializable,Comparable<FluctuationRate> {
     private String regionName;
     private String regionalCode;
     private float fluctuationLateData;
     private int population;
     private int price;
 
-    public FluctuationLate(String regionalCode, float fluctuationLateData, int price) {
+    public FluctuationRate(String regionalCode, float fluctuationLateData, int price) {
         this.regionalCode = regionalCode;
         this.fluctuationLateData = fluctuationLateData;
         this.price = price;
     }
 
     @Override
-    public int compareTo(FluctuationLate o) {
+    public int compareTo(FluctuationRate o) {
         if(this.fluctuationLateData>o.fluctuationLateData){
             return -1;
         }
