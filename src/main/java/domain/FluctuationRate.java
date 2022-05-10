@@ -16,12 +16,16 @@ public class FluctuationRate implements Serializable,Comparable<FluctuationRate>
     private int population;
     private int fluctuationPrice;
     private int averagePrice;
+    private int currentPriceCnt;
+    private int lastPriceCnt;
 
-    public FluctuationRate(String regionalCode, float fluctuationLateData, int fluctuationPrice, int averagePrice) {
+    public FluctuationRate(String regionalCode, float fluctuationLateData, int fluctuationPrice, int averagePrice, int currentPriceCnt, int lastPriceCnt) {
         this.regionalCode = regionalCode;
         this.fluctuationRateData = fluctuationLateData;
         this.fluctuationPrice = fluctuationPrice;
         this.averagePrice = averagePrice;
+        this.currentPriceCnt = currentPriceCnt;
+        this.lastPriceCnt = lastPriceCnt;
     }
 
     @Override
