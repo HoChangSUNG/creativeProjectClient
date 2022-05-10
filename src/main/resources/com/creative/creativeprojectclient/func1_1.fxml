@@ -22,28 +22,31 @@
          </children>
       </AnchorPane>
 
-      <TableView fx:id="apartment" layoutX="274.0" layoutY="118.0" prefHeight="199.0" prefWidth="878.0">
+      <TableView fx:id="apartment" layoutX="274.0" layoutY="118.0" prefHeight="199.0" prefWidth="882.4">
          <columns>
-            <TableColumn fx:id="regionNameColumnApt" prefWidth="356.0" styleClass="font-size" text="지역이름" />
-            <TableColumn fx:id="fluctuationRateColumnApt" prefWidth="202.0" styleClass="font-size" text="등락폭(등락가격)" />
-            <TableColumn fx:id="avgPriceColumnApt" prefWidth="155.0" styleClass="font-size" text="평균가격(만원)" />
-            <TableColumn fx:id="populationColumnApt" prefWidth="164.0" styleClass="font-size" text="인구수" />
+            <TableColumn fx:id="regionNameColumnApt" prefWidth="262.6" styleClass="font-size" text="지역이름" />
+            <TableColumn fx:id="fluctuationRateColumnApt" prefWidth="197.3" styleClass="font-size" text="등락폭(등락가격)" />
+            <TableColumn fx:id="avgPriceColumnApt" prefWidth="155.3" styleClass="font-size" text="평균가격(만원)" />
+            <TableColumn fx:id="populationColumnApt" prefWidth="113.9" styleClass="font-size" text="인구수" />
+            <TableColumn fx:id="priceCntColumnApt" prefWidth="153.3" styleClass="font-size" text="거래량(이전달)" />
          </columns>
       </TableView>
-      <TableView fx:id="rowhouse" layoutX="274.0" layoutY="354.0" prefHeight="199.0" prefWidth="878.0">
+      <TableView fx:id="rowhouse" layoutX="274.0" layoutY="354.0" prefHeight="199.0" prefWidth="882.4">
          <columns>
-            <TableColumn fx:id="regionNameColumnRow" prefWidth="356.0" styleClass="font-size" text="지역이름" />
-            <TableColumn fx:id="fluctuationRateColumnRow" prefWidth="202.0" styleClass="font-size" text="등락폭(등락가격)" />
-            <TableColumn fx:id="avgPriceColumnRow" prefWidth="155.0" styleClass="font-size" text="평균가격(만원)" />
-            <TableColumn fx:id="populationColumnRow" prefWidth="164.0" styleClass="font-size" text="인구수" />
+            <TableColumn fx:id="regionNameColumnRow" prefWidth="262.6" styleClass="font-size" text="지역이름" />
+            <TableColumn fx:id="fluctuationRateColumnRow" prefWidth="197.3" styleClass="font-size" text="등락폭(등락가격)" />
+            <TableColumn fx:id="avgPriceColumnRow" prefWidth="155.3" styleClass="font-size" text="평균가격(만원)" />
+            <TableColumn fx:id="populationColumnRow" prefWidth="113.9" styleClass="font-size" text="인구수" />
+            <TableColumn fx:id="priceCntColumnRow" prefWidth="153.3" styleClass="font-size" text="거래량(이전달)" />
          </columns>
       </TableView>
-      <TableView fx:id="detachedHouse" layoutX="274.0" layoutY="587.0" prefHeight="199.0" prefWidth="878.0">
+      <TableView fx:id="detachedHouse" layoutX="274.0" layoutY="587.0" prefHeight="199.0" prefWidth="882.4">
          <columns>
-            <TableColumn fx:id="regionNameColumnDetach" prefWidth="356.0" styleClass="font-size" text="지역이름" />
-            <TableColumn fx:id="fluctuationRateColumnDetach" prefWidth="202.0" styleClass="font-size" text="등락폭(등락가격)" />
-            <TableColumn fx:id="avgPriceColumnDetach" prefWidth="155.0" styleClass="font-size" text="평균가격(만원)" />
-            <TableColumn fx:id="populationColumnDetach" prefWidth="164.0" styleClass="font-size" text="인구수" />
+            <TableColumn fx:id="regionNameColumnDetach" prefWidth="262.6" styleClass="font-size" text="지역이름" />
+            <TableColumn fx:id="fluctuationRateColumnDetach" prefWidth="197.3" styleClass="font-size" text="등락폭(등락가격)" />
+            <TableColumn fx:id="avgPriceColumnDetach" prefWidth="155.3" styleClass="font-size" text="평균가격(만원)" />
+            <TableColumn fx:id="populationColumnDetach" prefWidth="113.9" styleClass="font-size" text="인구수" />
+            <TableColumn fx:id="priceCntColumnDetach" prefWidth="153.3" styleClass="font-size" text="거래량(이전달)" />
          </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="96.0" layoutY="147.0" prefHeight="34.0" prefWidth="170.0" style="-fx-font-size: 20;" text="아파트 등락폭" />
