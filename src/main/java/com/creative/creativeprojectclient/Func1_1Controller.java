@@ -43,6 +43,8 @@ public class Func1_1Controller implements Initializable {
     private TableColumn<Func1_1TableRowModel, String> avgPriceColumnApt;
     @FXML
     private TableColumn<Func1_1TableRowModel, String> populationColumnApt;
+    @FXML
+    private TableColumn<Func1_1TableRowModel, String> priceCntColumnApt;
 
     // 연립다세대
     @FXML
@@ -55,6 +57,8 @@ public class Func1_1Controller implements Initializable {
     private TableColumn<Func1_1TableRowModel, String> avgPriceColumnRow;
     @FXML
     private TableColumn<Func1_1TableRowModel, String> populationColumnRow;
+    @FXML
+    private TableColumn<Func1_1TableRowModel, String> priceCntColumnRow;
 
     // 단독/다가구
     @FXML
@@ -67,6 +71,8 @@ public class Func1_1Controller implements Initializable {
     private TableColumn<Func1_1TableRowModel, String> avgPriceColumnDetach;
     @FXML
     private TableColumn<Func1_1TableRowModel, String> populationColumnDetach;
+    @FXML
+    private TableColumn<Func1_1TableRowModel, String> priceCntColumnDetach;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -170,7 +176,7 @@ public class Func1_1Controller implements Initializable {
         fluctuationRateColumnApt.setCellValueFactory(cellData->cellData.getValue().fluctuationRateProperty());
         avgPriceColumnApt.setCellValueFactory(cellData->cellData.getValue().avgPriceProperty());
         populationColumnApt.setCellValueFactory(cellData->cellData.getValue().populationProperty());
-
+        priceCntColumnApt.setCellValueFactory(cellData->cellData.getValue().priceCntProperty());
 
         ObservableList<Func1_1TableRowModel> myList = FXCollections.observableArrayList();
 
@@ -179,7 +185,8 @@ public class Func1_1Controller implements Initializable {
             SimpleStringProperty fluctuationRate = new SimpleStringProperty(String.format("%.2f",data.get(i).getFluctuationRateData()));
             SimpleStringProperty averagePrice = new SimpleStringProperty(String.valueOf(data.get(i).getAveragePrice()));
             SimpleStringProperty population = new SimpleStringProperty(String.valueOf(data.get(i).getPopulation()));
-            myList.add((new Func1_1TableRowModel(regionName,fluctuationRate,averagePrice,population)));
+            SimpleStringProperty priceCnt = new SimpleStringProperty(data.get(i).getCurrentPriceCnt() + "(" + data.get(i).getLastPriceCnt() + ")");
+            myList.add((new Func1_1TableRowModel(regionName,fluctuationRate,averagePrice,population,priceCnt)));
         }
 
 
@@ -223,6 +230,7 @@ public class Func1_1Controller implements Initializable {
         fluctuationRateColumnRow.setCellValueFactory(cellData->cellData.getValue().fluctuationRateProperty());
         avgPriceColumnRow.setCellValueFactory(cellData->cellData.getValue().avgPriceProperty());
         populationColumnRow.setCellValueFactory(cellData->cellData.getValue().populationProperty());
+        priceCntColumnRow.setCellValueFactory(cellData->cellData.getValue().priceCntProperty());
 
         ObservableList<Func1_1TableRowModel> myList = FXCollections.observableArrayList();
 
@@ -231,7 +239,8 @@ public class Func1_1Controller implements Initializable {
             SimpleStringProperty fluctuationRate = new SimpleStringProperty(String.format("%.2f",data.get(i).getFluctuationRateData()));
             SimpleStringProperty averagePrice = new SimpleStringProperty(String.valueOf(data.get(i).getAveragePrice()));
             SimpleStringProperty population = new SimpleStringProperty(String.valueOf(data.get(i).getPopulation()));
-            myList.add((new Func1_1TableRowModel(regionName,fluctuationRate,averagePrice,population)));
+            SimpleStringProperty priceCnt = new SimpleStringProperty(data.get(i).getCurrentPriceCnt() + "(" + data.get(i).getLastPriceCnt() + ")");
+            myList.add((new Func1_1TableRowModel(regionName,fluctuationRate,averagePrice,population,priceCnt)));
         }
 
 
@@ -274,6 +283,7 @@ public class Func1_1Controller implements Initializable {
         fluctuationRateColumnDetach.setCellValueFactory(cellData->cellData.getValue().fluctuationRateProperty());
         avgPriceColumnDetach.setCellValueFactory(cellData->cellData.getValue().avgPriceProperty());
         populationColumnDetach.setCellValueFactory(cellData->cellData.getValue().populationProperty());
+        priceCntColumnDetach.setCellValueFactory(cellData->cellData.getValue().priceCntProperty());
 
         ObservableList<Func1_1TableRowModel> myList = FXCollections.observableArrayList();
 
@@ -282,7 +292,8 @@ public class Func1_1Controller implements Initializable {
             SimpleStringProperty fluctuationLate = new SimpleStringProperty(String.format("%.2f",data.get(i).getFluctuationRateData()));
             SimpleStringProperty averagePrice = new SimpleStringProperty(String.valueOf(data.get(i).getAveragePrice()));
             SimpleStringProperty population = new SimpleStringProperty(String.valueOf(data.get(i).getPopulation()));
-            myList.add((new Func1_1TableRowModel(regionName,fluctuationLate,averagePrice,population)));
+            SimpleStringProperty priceCnt = new SimpleStringProperty(data.get(i).getCurrentPriceCnt() + "(" + data.get(i).getLastPriceCnt() + ")");
+            myList.add((new Func1_1TableRowModel(regionName,fluctuationLate,averagePrice,population,priceCnt)));
         }
 
 
