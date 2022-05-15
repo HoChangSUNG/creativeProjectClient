@@ -114,11 +114,11 @@ public class Func1_1Controller implements Initializable {
         }
     }
     @FXML
-    public void moveToFunc3Controller(){
+    public void moveToFunc3_1Controller(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func3.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func3_1.fxml"));
             AnchorPane std = fxmlLoader.load();
-            Func3Controller controller = fxmlLoader.getController();
+            Func3_1Controller controller = fxmlLoader.getController();
             controller.setMainController(mainController);
 
             panel.getChildren().setAll(std);
@@ -126,35 +126,6 @@ public class Func1_1Controller implements Initializable {
         }catch(Exception e){
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    public void func1(){// 기능 1.1 REQ 한 후, RES 받는것 테스트
-        Packet packet = new Packet();
-        packet.setProtocolType(ProtocolType.REAL_ESTATE_INFO.getType());
-        packet.setProtocolCode(RealEstateInfoCode.SEND_DATA_REQ.getCode());
-        mainController.writePacket(packet);
-
-        Packet sendPacket = mainController.readPacket();
-        String data = (String)sendPacket.getBody();
-
-        System.out.println(data);
-        result.setText(data);
-    }
-
-    @FXML
-    public void func2(){// 기능 1.2 REQ 한 후, RES 받는것 테스트
-        Packet packet = new Packet();
-        packet.setProtocolType(ProtocolType.REAL_ESTATE_INFO.getType());
-        packet.setProtocolCode(RealEstateInfoCode.SEND_GRAPH_DATA_REQ.getCode());
-        mainController.writePacket(packet);
-
-        Packet sendPacket = mainController.readPacket();
-        String data = (String)sendPacket.getBody();
-
-        System.out.println(data);
-        result.setText(data);
-
     }
 
     public void showRegionalEstateAvgData(){//실거래가 기준 지역별 부동산의 평균 가격,등락폭,인구수 제공

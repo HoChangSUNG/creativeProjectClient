@@ -17,7 +17,7 @@
       <AnchorPane prefHeight="800.0" prefWidth="73.0">
          <children>
             <Button contentDisplay="CENTER" layoutY="284.0" mnemonicParsing="false" onAction="#moveToFunc1_1Controller" prefHeight="34.0" prefWidth="73.0" text="기능1" />
-            <Button contentDisplay="CENTER" layoutY="352.0" mnemonicParsing="false" onAction="#moveToFunc3Controller" prefHeight="34.0" prefWidth="73.0" text="기능3" />
+            <Button contentDisplay="CENTER" layoutY="352.0" mnemonicParsing="false" onAction="#moveToFunc3_1Controller" prefHeight="34.0" prefWidth="73.0" text="기능3" />
             <Button contentDisplay="CENTER" layoutY="318.0" mnemonicParsing="false" onAction="#moveToFunc2Controller" prefHeight="34.0" prefWidth="73.0" text="기능2" />
          </children>
       </AnchorPane>
