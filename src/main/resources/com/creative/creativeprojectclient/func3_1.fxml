@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel" prefHeight="850.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.creative.creativeprojectclient.Func2Controller">
+<AnchorPane fx:id="panel" prefHeight="850.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.creative.creativeprojectclient.Func3_1Controller">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="193.0" layoutY="48.0" prefHeight="40.0" prefWidth="1000.0" text="2. 부동산 지역 비교">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="193.0" layoutY="48.0" prefHeight="40.0" prefWidth="1000.0" text="3-1. 사용자가 원하는 조건에 맞는 부동산 추천">
          <font>
             <Font size="24.0" />
          </font>
@@ -20,10 +19,16 @@
             <Button contentDisplay="CENTER" layoutY="318.0" mnemonicParsing="false" onAction="#moveToFunc2Controller" prefHeight="34.0" prefWidth="73.0" text="기능2" />
          </children>
       </AnchorPane>
-      <ComboBox fx:id="sidoCombo" layoutX="247.0" layoutY="178.0" onAction="#sidoComboChange" prefWidth="150.0" />
-      <ComboBox fx:id="sigunguCombo" layoutX="466.0" layoutY="178.0" onAction="#sigungoComboChange" onMouseClicked="#sigungoComboChange" prefWidth="150.0" />
-      <ComboBox fx:id="eupMyeonDongCombo" layoutX="685.0" layoutY="178.0" prefWidth="150.0" />
-      <Button fx:id="findBtn" layoutX="919.0" layoutY="178.0" mnemonicParsing="false" onAction="#findApart" text="찾기" />
+      <Button layoutX="85.0" layoutY="295.0" mnemonicParsing="false" onAction="#moveToFunc3_1Controller" prefHeight="34.0" prefWidth="73.0" text="3-1">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="85.0" layoutY="337.0" mnemonicParsing="false" onAction="#moveToFunc3_2Controller" prefHeight="34.0" prefWidth="73.0" text="3-2">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
 
 
    </children>

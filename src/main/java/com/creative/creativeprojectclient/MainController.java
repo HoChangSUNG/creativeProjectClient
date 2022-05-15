@@ -1,16 +1,22 @@
 package com.creative.creativeprojectclient;
 
+import domain.Sido;
 import network.Packet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import network.ProtocolType;
+import network.protocolCode.RealEstateInfoCode;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+
+
 public class MainController implements Initializable {
 
     private Socket socket;
@@ -19,19 +25,26 @@ public class MainController implements Initializable {
     @FXML
     private AnchorPane panel;
 
+    private List<Sido> regionSelectList;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("=======MainController 실행됨=======");
 
         //소켓 연결
         initSocket();
-        
-        //첫번째 기능으로 이동
 
+        //지역 선택 리스트 가져오기
+        regionSelectList = readRegionSelectList();
+
+        //첫번째 기능으로 이동
         moveToFunc1_1Controller();
+
 
     }
 
+    public List<Sido> getRegionSelectList(){
+        return regionSelectList;
+    }
     public void moveToFunc1_1Controller(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1_1.fxml"));
@@ -82,6 +95,16 @@ public class MainController implements Initializable {
 
             throw new RuntimeException();
         }
+    }
+
+    private List<Sido> readRegionSelectList(){
+        Packet packet = new Packet();
+        packet.setProtocolType(ProtocolType.REAL_ESTATE_INFO.getType());
+        packet.setProtocolCode(RealEstateInfoCode.REGION_SELECTION_REQ.getCode());
+        writePacket(packet);
+        Packet receivePacket = readPacket();
+
+        return (java.util.List<Sido>) receivePacket.getBody();
     }
 
 }

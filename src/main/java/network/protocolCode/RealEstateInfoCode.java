@@ -2,8 +2,8 @@ package network.protocolCode;
 
 public enum RealEstateInfoCode {
     // 1. 지역별 부동산 가격 제공
-    SEND_DATA_REQ((byte) 0x00),  SEND_DATA_RES((byte) 0x01), SEND_GRAPH_DATA_REQ((byte) 0x02), SEND_GRAPH_DATA_RES((byte) 0x03);
-
+    SEND_DATA_REQ((byte) 0x00),  SEND_DATA_RES((byte) 0x01), SEND_GRAPH_DATA_REQ((byte) 0x02), SEND_GRAPH_DATA_RES((byte) 0x03),
+    REGION_SELECTION_REQ((byte) 0x04),REGION_SELECTION_RES((byte) 0x05);
     /** 1. 지역별 부동산 가격 제공 ProtocolCode
      *
      * 1-1. 실거래가 기준 지역별 부동산의 평균 가격과 가격 등락폭, 인구수 제공
@@ -33,8 +33,12 @@ public enum RealEstateInfoCode {
                 return SEND_DATA_RES;
             case 0x02:
                 return SEND_GRAPH_DATA_REQ;
-            default:
+            case 0x03:
                 return SEND_GRAPH_DATA_RES;
+            case 0x04:
+                return REGION_SELECTION_REQ;
+            default:
+                return REGION_SELECTION_RES;
 
         }
     }
