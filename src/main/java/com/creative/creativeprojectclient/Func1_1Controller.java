@@ -3,6 +3,7 @@ package com.creative.creativeprojectclient;
 import body.FluctuationRateWrapper;
 import body.SelectRegionGraphData;
 import com.creative.creativeprojectclient.datamodel.Func1_1TableRowModel;
+import domain.ApartmentIndex;
 import domain.FluctuationRate;
 import domain.Sido;
 import domain.Sigungu;
@@ -10,6 +11,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
@@ -22,6 +25,8 @@ import javafx.scene.layout.AnchorPane;
 import network.protocolCode.RealEstateInfoCode;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,6 +69,9 @@ public class Func1_1Controller implements Initializable {
     private TableColumn<Func1_1TableRowModel, String> populationColumnApt;
     @FXML
     private TableColumn<Func1_1TableRowModel, String> priceCntColumnApt;
+
+    @FXML
+    private LineChart<String,Number> chart;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -142,10 +150,65 @@ public class Func1_1Controller implements Initializable {
         String regionName = firstRegionSelectList.get(regionComboIndex);
 
         Packet sendPacket = new Packet(ProtocolType.REAL_ESTATE_INFO.getType(), RealEstateInfoCode.GRAPH_REGION_SELECTION_FIRST_REQ.getCode(),regionName);
+
         mainController.writePacket(sendPacket); //패킷 송신
         receivePacket = mainController.readPacket(); //패킷 수신
-    }
 
+        showFirstRegionGraph(receivePacket);
+    }
+    private void showFirstRegionGraph(Packet receivePacket){
+
+        chart.getData().clear();
+        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+
+        List<ApartmentIndex> apartmentIndices = (List<ApartmentIndex>) receivePacket.getBody();
+        for (ApartmentIndex apartmentIndex : apartmentIndices) {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월");
+            dateFormat.format(apartmentIndex.getDate());
+//            System.out.println(apartmentIndex.getRegion()+" "+dateFormat.format(apartmentIndex.getDate())+" "+apartmentIndex.getIndex()+" "+apartmentIndex.getFluctuation());
+            series.getData().add(new XYChart.Data<String, Number>(dateFormat.format(apartmentIndex.getDate()), apartmentIndex.getIndex()));
+
+        }
+        series.setName("전국 부동산 가격 지수");
+        chart.getData().add(series);
+//        chart.getData().clear();
+//        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+
+//        series.getData().add(new XYChart.Data<String, Number>("1", 200));
+//        series.getData().add(new XYChart.Data<String, Number>("2", 500));
+//        series.getData().add(new XYChart.Data<String, Number>("3", 300));
+//        series.getData().add(new XYChart.Data<String, Number>("4", 600));
+//        series.getData().add(new XYChart.Data<String, Number>("5", 500));
+//        series.getData().add(new XYChart.Data<String, Number>("6", 300));
+//        series.getData().add(new XYChart.Data<String, Number>("7", 600));
+//        series.getData().add(new XYChart.Data<String, Number>("8", 500));
+//        series.getData().add(new XYChart.Data<String, Number>("9", 300));
+//        series.getData().add(new XYChart.Data<String, Number>("0", 600));
+//        series.getData().add(new XYChart.Data<String, Number>("11", 500));
+//        series.getData().add(new XYChart.Data<String, Number>("12", 300));
+//        series.getData().add(new XYChart.Data<String, Number>("13", 600));
+//        series.setName("전국 부동산 가격 지수");
+//        chart.getData().add(series);
+
+        for(int i=0;i<chart.getData().size();i++){
+            XYChart.Series<String, Number> s = chart.getData().get(i);
+            for(int j=0;j<s.getData().size();j++){
+                XYChart.Data<String, Number> d = s.getData().get(j);
+
+                int finalJ = j;
+                d.getNode().setOnMouseEntered(event -> {
+                    d.getNode().getStyleClass().add("onHover");
+                    result.setText(d.getXValue()+" "+d.getYValue());
+                });
+
+                //Removing class on exit
+                d.getNode().setOnMouseExited(event -> {
+                    d.getNode().getStyleClass().remove("onHover");
+                    result.setText("");
+                });
+            }
+        }
+    }
     public void findSecondRegion(ActionEvent event) { // 두번째 찾기 버튼 클릭시
         int sidoIndex = sidoCombo.getSelectionModel().getSelectedIndex();
         int sigunguIndex = sigunguCombo.getSelectionModel().getSelectedIndex();
