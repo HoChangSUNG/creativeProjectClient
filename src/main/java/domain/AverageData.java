@@ -15,6 +15,5 @@ public class AverageData implements Serializable {
 
     private String regionalCode;
     private int average;
-
-
+    private int priceCnt;
 }
