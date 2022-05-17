@@ -6,6 +6,7 @@ module com.creative.creativeprojectclient {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires lombok;
+    requires java.sql;
 
     opens com.creative.creativeprojectclient to javafx.fxml;
     exports com.creative.creativeprojectclient;

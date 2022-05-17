@@ -77,7 +77,7 @@ public class Func1_1Controller implements Initializable {
         firstRegionSelectList = Arrays.asList("전국", "수도권", "지방권", "6대광역시", "5대광역시", "9개도", "8개도");
     }
 
-    private void initFirstRegionSelectCombo(){// 첫번째 그래프 콤보 박스 초괴화
+    private void initFirstRegionSelectCombo(){// 첫번째 그래프 콤보 박스 초기화
         regionCombo.setPromptText("지역");
 
         ObservableList<String> firstGraphRegion = FXCollections.observableArrayList(firstRegionSelectList);
@@ -143,7 +143,7 @@ public class Func1_1Controller implements Initializable {
 
         Packet sendPacket = new Packet(ProtocolType.REAL_ESTATE_INFO.getType(), RealEstateInfoCode.GRAPH_REGION_SELECTION_FIRST_REQ.getCode(),regionName);
         mainController.writePacket(sendPacket); //패킷 송신
-//        receivePacket = mainController.readPacket(); //패킷 수신
+        receivePacket = mainController.readPacket(); //패킷 수신
     }
 
     public void findSecondRegion(ActionEvent event) { // 두번째 찾기 버튼 클릭시
@@ -178,7 +178,7 @@ public class Func1_1Controller implements Initializable {
 
 
         mainController.writePacket(sendPacket); //패킷 송신
-//        receivePacket = mainController.readPacket(); //패킷 수신
+        receivePacket = mainController.readPacket(); //패킷 수신
 
     }
 
