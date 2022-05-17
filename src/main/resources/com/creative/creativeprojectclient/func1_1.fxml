@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -32,12 +35,24 @@
             <TableColumn fx:id="priceCntColumnApt" prefWidth="153.3" styleClass="font-size" text="거래량(이전달)" />
          </columns>
       </TableView>
-      <ComboBox fx:id="sidoCombo" layoutX="313.0" layoutY="626.0" onAction="#sidoComboChange" prefWidth="150.0" />
-      <ComboBox fx:id="sigunguCombo" layoutX="532.0" layoutY="626.0" prefWidth="150.0" />
-      <Button fx:id="findSecondGraphBtn" layoutX="735.0" layoutY="626.0" mnemonicParsing="false" onAction="#findSecondRegion" text="검색" />
+      <ComboBox fx:id="sidoCombo" layoutX="741.0" layoutY="389.0" onAction="#sidoComboChange" prefWidth="150.0" />
+      <ComboBox fx:id="sigunguCombo" layoutX="960.0" layoutY="389.0" prefWidth="150.0" />
+      <Button fx:id="findSecondGraphBtn" layoutX="1163.0" layoutY="389.0" mnemonicParsing="false" onAction="#findSecondRegion" text="검색" />
       <ComboBox fx:id="regionCombo" layoutX="348.0" layoutY="389.0" prefWidth="150.0" />
-      <Button fx:id="findFirstGraphBtn1" layoutX="630.0" layoutY="389.0" mnemonicParsing="false" onAction="#findFirstRegion" text="검색" />
+      <Button fx:id="findFirstGraphBtn1" layoutX="570.0" layoutY="389.0" mnemonicParsing="false" onAction="#findFirstRegion" text="검색" />
 
+      <LineChart fx:id="chart" layoutX="10.0" layoutY="436.0" prefHeight="400.0" prefWidth="1280.0" title="test">
+         <xAxis>
+            <CategoryAxis label="날짜" prefWidth="744.0" side="BOTTOM">
+               <tickLabelFont>
+                  <Font size="1.0" />
+               </tickLabelFont></CategoryAxis>
+         </xAxis>
+         <yAxis>
+            <NumberAxis label="지수" side="LEFT" />
+         </yAxis>
+      </LineChart>
+      <Label fx:id="result" layoutX="570.0" layoutY="775.0" prefHeight="34.0" prefWidth="81.0" />
 
    </children>
 </AnchorPane>
