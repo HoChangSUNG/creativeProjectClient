@@ -1,5 +1,7 @@
 package body;
 
+import domain.Apartment;
+import domain.ApartmentInfo1;
 import domain.AverageData;
 import domain.FluctuationRate;
 import lombok.AllArgsConstructor;

@@ -15,6 +15,7 @@ public class Sigungu implements Serializable {
 
     private String regionalCode;
     private String regionName;
+    private int eupMyeonDongIndex = 0;
     private List<EupMyeonDong> eupMyeonDongList;
 
     public Sigungu(String regionalCode, String regionName) {
