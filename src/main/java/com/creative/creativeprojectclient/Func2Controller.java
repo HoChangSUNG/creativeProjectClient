@@ -185,10 +185,12 @@ public class Func2Controller implements Initializable {
         }
         Sigungu sigungu = regionSelectList.get(sidoIndex).getSigunguList().get(sigunguIndex);
         EupMyeonDong eupMyeonDong = sigungu.getEupMyeonDongList().get(eupMyeonDongIndex);
-        sigungu.setEupMyeonDongIndex(eupMyeonDongIndex);
-//        List<EupMyeonDong> eupMyeonDongList = null;
-//        eupMyeonDongList.add(eupMyeonDong);
-//        sigungu.setEupMyeonDongList(eupMyeonDongList);
+
+        SelectApartRegion selectApartRegion = new SelectApartRegion(sigungu.getRegionName(), sigungu.getRegionalCode(), eupMyeonDong.getRegionName());
+
+
+        System.out.println("읍면동 인덱스 : "+ eupMyeonDongIndex);
+
 
         System.out.println("선택된 시군구 지역 코드 : "+sigungu.getRegionalCode());
         System.out.println("선택된 시군구 지역 이름 : "+sigungu.getRegionName());
@@ -197,7 +199,8 @@ public class Func2Controller implements Initializable {
         Packet packet = new Packet();
         packet.setProtocolType(ProtocolType.REAL_ESTATE_COMPARE.getType());
         packet.setProtocolCode(RealEstateCompareCode.REAL_ESTATE_APARTMENT_REQ.getCode());
-        packet.setBody(sigungu);
+
+        packet.setBody(selectApartRegion);
 
         mainController.writePacket(packet);
         showApartment();
