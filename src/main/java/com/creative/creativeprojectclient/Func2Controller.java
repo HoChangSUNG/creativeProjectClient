@@ -188,14 +188,6 @@ public class Func2Controller implements Initializable {
 
         SelectApartRegion selectApartRegion = new SelectApartRegion(sigungu.getRegionName(), sigungu.getRegionalCode(), eupMyeonDong.getRegionName());
 
-
-        System.out.println("읍면동 인덱스 : "+ eupMyeonDongIndex);
-
-
-        System.out.println("선택된 시군구 지역 코드 : "+sigungu.getRegionalCode());
-        System.out.println("선택된 시군구 지역 이름 : "+sigungu.getRegionName());
-        System.out.println("선택된 읍면동 이름 :" +eupMyeonDong.getRegionName());
-
         Packet packet = new Packet();
         packet.setProtocolType(ProtocolType.REAL_ESTATE_COMPARE.getType());
         packet.setProtocolCode(RealEstateCompareCode.REAL_ESTATE_APARTMENT_REQ.getCode());
