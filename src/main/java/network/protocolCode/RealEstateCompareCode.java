@@ -1,7 +1,8 @@
 package network.protocolCode;
 
 public enum RealEstateCompareCode {
-    REAL_ESTATE_COMPARE_REQ((byte) 0x00),  REAL_ESTATE_COMPARE_RES((byte) 0x01);
+    REAL_ESTATE_APARTMENT_REQ((byte) 0x00),  REAL_ESTATE_APARTMENT_RES((byte) 0x01),
+    REAL_ESTATE_APARTMENT_INFO_REQ((byte) 0x02),  REAL_ESTATE_APARTMENT_INFO_RES((byte) 0x03);
 
     /** 2. 부동산 지역 비교 ProtocolCode
      *
@@ -24,10 +25,13 @@ public enum RealEstateCompareCode {
     public static RealEstateCompareCode get(int code) {
         switch (code) {
             case 0x00:
-                return REAL_ESTATE_COMPARE_REQ;
+                return REAL_ESTATE_APARTMENT_REQ;
+            case 0x01:
+                return REAL_ESTATE_APARTMENT_RES;
+            case 0x02:
+                return REAL_ESTATE_APARTMENT_INFO_REQ;
             default:
-                return REAL_ESTATE_COMPARE_RES;
-
+                return REAL_ESTATE_APARTMENT_INFO_RES;
         }
     }
 

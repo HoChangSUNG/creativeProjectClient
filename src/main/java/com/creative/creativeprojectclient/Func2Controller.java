@@ -1,10 +1,16 @@
 package com.creative.creativeprojectclient;
 
-import domain.EupMyeonDong;
-import domain.Sido;
-import domain.Sigungu;
+
+import com.creative.creativeprojectclient.datamodel.Func2TableRowModel;
+import domain.*;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.util.Callback;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +39,12 @@ public class Func2Controller implements Initializable {
     ComboBox<String> sigunguCombo;
     @FXML
     ComboBox<String> eupMyeonDongCombo;
+    @FXML
+    private TableView<Func2TableRowModel> apartment;
+    @FXML
+    private TableColumn<Func2TableRowModel, String> apartmentName;
+    @FXML
+    private TableColumn<Func2TableRowModel, String> area;
 
     private List<Sido> regionSelectList;
     @FXML
@@ -162,20 +174,6 @@ public class Func2Controller implements Initializable {
         }
     }
 
-    @FXML
-    public void func1(){// 기능 2.1 REQ 한 후, RES 받는것 테스트
-        Packet packet = new Packet();
-        packet.setProtocolType(ProtocolType.REAL_ESTATE_COMPARE.getType());
-        packet.setProtocolCode(RealEstateCompareCode.REAL_ESTATE_COMPARE_REQ.getCode());
-        mainController.writePacket(packet);
-
-        Packet sendPacket = mainController.readPacket();
-        String data = (String)sendPacket.getBody();
-
-        System.out.println(data);
-
-    }
-
     public void findApart(ActionEvent event) { // 찾기 버튼 클릭시
         int sidoIndex = sidoCombo.getSelectionModel().getSelectedIndex();
         int sigunguIndex = sigunguCombo.getSelectionModel().getSelectedIndex();
@@ -187,11 +185,41 @@ public class Func2Controller implements Initializable {
         }
         Sigungu sigungu = regionSelectList.get(sidoIndex).getSigunguList().get(sigunguIndex);
         EupMyeonDong eupMyeonDong = sigungu.getEupMyeonDongList().get(eupMyeonDongIndex);
+        sigungu.setEupMyeonDongIndex(eupMyeonDongIndex);
+//        List<EupMyeonDong> eupMyeonDongList = null;
+//        eupMyeonDongList.add(eupMyeonDong);
+//        sigungu.setEupMyeonDongList(eupMyeonDongList);
 
         System.out.println("선택된 시군구 지역 코드 : "+sigungu.getRegionalCode());
         System.out.println("선택된 시군구 지역 이름 : "+sigungu.getRegionName());
         System.out.println("선택된 읍면동 이름 :" +eupMyeonDong.getRegionName());
 
+        Packet packet = new Packet();
+        packet.setProtocolType(ProtocolType.REAL_ESTATE_COMPARE.getType());
+        packet.setProtocolCode(RealEstateCompareCode.REAL_ESTATE_APARTMENT_REQ.getCode());
+        packet.setBody(sigungu);
+
+        mainController.writePacket(packet);
+        showApartment();
+    }
+
+    public void showApartment(){
+        Packet sendPacket = mainController.readPacket();
+        List<ApartmentInfo1> apartmentList = (java.util.List<ApartmentInfo1>)sendPacket.getBody();
+
+        apartmentName.setCellValueFactory(cellData->cellData.getValue().apartmentNameProperty());
+        area.setCellValueFactory(cellData->cellData.getValue().areaProperty());
+
+        ObservableList<Func2TableRowModel> myList = FXCollections.observableArrayList();
+
+        for (int i=0;i<apartmentList.size();i++){
+            SimpleStringProperty apartmentName = new SimpleStringProperty(apartmentList.get(i).getApartmentName());
+            SimpleStringProperty area = new SimpleStringProperty(String.valueOf(apartmentList.get(i).getArea()));
+
+            myList.add((new Func2TableRowModel(apartmentName,area)));
+        }
+
+        apartment.setItems(myList);
     }
 
     private void alert(int sidoIndex, int sigunguIndex, int eupMyeonDongIndex) {
