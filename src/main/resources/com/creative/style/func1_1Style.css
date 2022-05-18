@@ -2,3 +2,7 @@
 .font-size{
      -fx-font: 20 arial;
 }
+
+.onHover{
+    -fx-background-color: ORANGE;
+}
