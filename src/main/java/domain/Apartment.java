@@ -21,5 +21,4 @@ public class Apartment {
     private String jibun;
     private String regionalCode;
 
-
 }

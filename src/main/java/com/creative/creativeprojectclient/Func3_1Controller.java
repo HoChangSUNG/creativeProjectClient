@@ -1,18 +1,24 @@
 package com.creative.creativeprojectclient;
 
-import domain.EupMyeonDong;
-import domain.Sido;
-import domain.Sigungu;
+import body.SendDataResBody;
+import com.creative.creativeprojectclient.datamodel.Func2TableRowModel;
+import domain.*;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import network.Packet;
 import network.ProtocolType;
+import network.protocolCode.RealEstateCompareCode;
 import network.protocolCode.RealEstateRecommendCode;
 
 import java.net.URL;
@@ -25,23 +31,25 @@ import static javafx.scene.control.Alert.AlertType.WARNING;
 public class Func3_1Controller implements Initializable {
     @FXML
     AnchorPane panel;
-
-    @FXML
-    Label result;
     @FXML
     Button findBtn;
     @FXML
     ComboBox<String> sidoCombo;
     @FXML
     ComboBox<String> sigunguCombo;
-
+    @FXML
+    ComboBox<String> eupMyeonDongCombo;
+    @FXML
+    LineChart lineChart;
+    @FXML
+    BarChart barChart;
+    @FXML
+    Label result;
     private List<Sido> regionSelectList;
     private MainController mainController;
     public void setMainController(MainController mainController) {
-
         this.mainController = mainController;
-        initRegionSelectCombo(); // 지역 콤보 박스 초기화
-
+        initRegionSelectCombo();
     }
 
 
@@ -49,12 +57,12 @@ public class Func3_1Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-
     private void initRegionSelectCombo(){// 시도 콤보 박스 초기화
         regionSelectList = mainController.getRegionSelectList();// 지역 리스트 초기화
 
         sidoCombo.setPromptText("시/도");
         sigunguCombo.setPromptText("시/군/구");
+        eupMyeonDongCombo.setPromptText("읍/면/동");
 
         List<String> sidoNameList = regionSelectList.stream()
                 .map(sido -> sido.getRegionName())
@@ -65,8 +73,8 @@ public class Func3_1Controller implements Initializable {
 
         setComboBoxPrompt(sidoCombo);
         setComboBoxPrompt(sigunguCombo);
+        setComboBoxPrompt(eupMyeonDongCombo);
     }
-
     private void setComboBoxPrompt(ComboBox<String> comboBox) {
         comboBox.setButtonCell(new ListCell<>() { // Combo box 초기화 시 promptText 강제로 보여주기.
             @Override
@@ -93,9 +101,30 @@ public class Func3_1Controller implements Initializable {
 
         sigunguCombo.setItems(sigungus); //시도에 맞는 시군구 콤보 박스 설정
 
+        eupMyeonDongCombo.getSelectionModel().clearSelection(); // 읍면동 콤보 박스 초기화
+        eupMyeonDongCombo.getItems().clear();
+
+
     }
 
+    public void sigungoComboChange(){//시군구 콤보박스 선택시
+        int sidoIndex = sidoCombo.getSelectionModel().getSelectedIndex(); //선택한 시도 콤보 인덱스
+        int sigunguIndex = sigunguCombo.getSelectionModel().getSelectedIndex(); //선택한 시군고 콤보 인덱스
 
+        if(sigunguIndex==-1)
+            return;
+
+        List<EupMyeonDong> eupMyeonDongList = regionSelectList.get(sidoIndex).getSigunguList().get(sigunguIndex).getEupMyeonDongList(); //선택한 시군구에 있는 읍면동 리스트 반환
+
+        List<String> eupMyeonDongNameList = eupMyeonDongList.stream()
+                .map(eupMyeonDong -> eupMyeonDong.getRegionName())
+                .collect(Collectors.toList());// 선택한 시군구에 있는 시군구 이름 리스트 반환
+
+        ObservableList<String> eupMyeonDongs = FXCollections.observableArrayList(eupMyeonDongNameList);
+
+        eupMyeonDongCombo.setItems(eupMyeonDongs);
+
+    }
     public void moveToFunc1_1Controller(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1_1.fxml"));
@@ -125,30 +154,6 @@ public class Func3_1Controller implements Initializable {
         }
     }
 
-    public void findButton(ActionEvent event) { // 찾기 버튼 클릭시
-        int sidoIndex = sidoCombo.getSelectionModel().getSelectedIndex();
-        int sigunguIndex = sigunguCombo.getSelectionModel().getSelectedIndex();
-
-        if(sidoIndex<0 || sigunguIndex<0){ // 선택되지 않은 콤보 박스가 있을 경우
-            alert(sidoIndex,sigunguIndex);
-            return;
-        }
-        Sigungu sigungu = regionSelectList.get(sidoIndex).getSigunguList().get(sigunguIndex);
-
-        System.out.println("선택된 시군구 지역 코드 : "+sigungu.getRegionalCode());
-        System.out.println("선택된 시군구 지역 이름 : "+sigungu.getRegionName());
-
-    }
-
-    private void alert(int sidoIndex, int sigunguIndex) {
-        Alert alert = new Alert(WARNING);
-        if(sidoIndex<0)
-            alert.setHeaderText("시/도를 입력해주세요");
-        else
-            alert.setHeaderText("시/군/구를 입력해주세요");
-
-        alert.showAndWait();
-    }
     @FXML
     public void moveToFunc3_1Controller(){
         try{
@@ -178,5 +183,60 @@ public class Func3_1Controller implements Initializable {
             e.printStackTrace();
         }
     }
+    public void findApart(ActionEvent event) { // 찾기 버튼 클릭시
+        Packet receivePacket = null;
+        int sidoIndex = sidoCombo.getSelectionModel().getSelectedIndex();
+        int sigunguIndex = sigunguCombo.getSelectionModel().getSelectedIndex();
+        int eupMyeonDongIndex = eupMyeonDongCombo.getSelectionModel().getSelectedIndex();
 
+        if (sidoIndex < 0 || sigunguIndex < 0 || eupMyeonDongIndex < 0) { // 선택되지 않은 콤보 박스가 있을 경우
+            alert(sidoIndex, sigunguIndex, eupMyeonDongIndex);
+            return;
+        }
+        Sigungu sigungu = regionSelectList.get(sidoIndex).getSigunguList().get(sigunguIndex);
+        EupMyeonDong eupMyeonDong = sigungu.getEupMyeonDongList().get(eupMyeonDongIndex);
+
+        ApartmentForSearch apartmentForSearch = new ApartmentForSearch(sigungu.getRegionalCode(), eupMyeonDong.getRegionName());
+        Packet packet = new Packet();
+        packet.setProtocolType(ProtocolType.REAL_ESTATE_RECOMMEND.getType());
+        packet.setProtocolCode(RealEstateRecommendCode.RECORD_INFO_REQ.getCode());
+
+        packet.setBody(apartmentForSearch);
+
+        mainController.writePacket(packet);
+
+        receivePacket = mainController.readPacket();
+        SendDataResBody sendDataResBody = (SendDataResBody) receivePacket.getBody();
+        List<AverageAreaAmoumtApartmentData> averageAreaAmoumtApartmentData = sendDataResBody.getAverageAreaAmoumtApartmentList();
+
+        lineChart.getData().clear();
+        barChart.getData().clear();
+
+        XYChart.Series<String, Double> seriesline = new XYChart.Series<String, Double>();
+        XYChart.Series<String, Integer> seriesbar = new XYChart.Series<String, Integer>();
+
+        seriesline.setName("평단가 차트");
+        seriesbar.setName("거래량 차트");
+        for (AverageAreaAmoumtApartmentData a : averageAreaAmoumtApartmentData) {
+            seriesline.getData().add(new XYChart.Data<String, Double>((a.getDealYear() + "." + a.getDealMonth()), a.getAverageAreaAmoumt()));
+            seriesbar.getData().add(new XYChart.Data<String, Integer>((a.getDealYear() + "." + a.getDealMonth()), a.getAverageCnt()));
+        }
+        lineChart.getData().add(seriesline);
+        barChart.getData().add(seriesbar);
+
+    }
+
+
+
+    private void alert(int sidoIndex, int sigunguIndex, int eupMyeonDongIndex) {
+        Alert alert = new Alert(WARNING);
+        if(sidoIndex<0)
+            alert.setHeaderText("시/도를 입력해주세요");
+        else if(sigunguIndex<0)
+            alert.setHeaderText("시/군/구를 입력해주세요");
+        else
+            alert.setHeaderText("읍/면/동을 입력해주세요");
+
+        alert.showAndWait();
+    }
 }
