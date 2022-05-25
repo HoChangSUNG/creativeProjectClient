@@ -54,9 +54,5 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
-      <Label layoutX="968.0" layoutY="263.0" text="Label" />
-      <Label layoutX="968.0" layoutY="295.0" text="Label" />
-      <Label layoutX="968.0" layoutY="330.0" text="Label" />
-
    </children>
 </AnchorPane>
