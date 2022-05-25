@@ -4,13 +4,11 @@ package com.creative.creativeprojectclient;
 import com.creative.creativeprojectclient.datamodel.Func2TableRowModel;
 import domain.*;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.util.Callback;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,6 +48,10 @@ public class Func2Controller implements Initializable {
     @FXML
     Button test;
     private MainController mainController;
+    private List<ApartmentInfo1> apartmentList;
+    private String regionalCode;
+    private String regionName;
+
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
         initRegionSelectCombo(); // 지역 콤보 박스 초기화
@@ -188,6 +190,9 @@ public class Func2Controller implements Initializable {
 
         SelectApartRegion selectApartRegion = new SelectApartRegion(sigungu.getRegionName(), sigungu.getRegionalCode(), eupMyeonDong.getRegionName());
 
+        regionalCode = sigungu.getRegionalCode();
+        regionName = eupMyeonDong.getRegionName();
+
         Packet packet = new Packet();
         packet.setProtocolType(ProtocolType.REAL_ESTATE_COMPARE.getType());
         packet.setProtocolCode(RealEstateCompareCode.REAL_ESTATE_APARTMENT_REQ.getCode());
@@ -200,7 +205,7 @@ public class Func2Controller implements Initializable {
 
     public void showApartment(){
         Packet sendPacket = mainController.readPacket();
-        List<ApartmentInfo1> apartmentList = (java.util.List<ApartmentInfo1>)sendPacket.getBody();
+        apartmentList = (java.util.List<ApartmentInfo1>)sendPacket.getBody();
 
         apartmentName.setCellValueFactory(cellData->cellData.getValue().apartmentNameProperty());
         area.setCellValueFactory(cellData->cellData.getValue().areaProperty());
@@ -209,7 +214,7 @@ public class Func2Controller implements Initializable {
 
         for (int i=0;i<apartmentList.size();i++){
             SimpleStringProperty apartmentName = new SimpleStringProperty(apartmentList.get(i).getApartmentName());
-            SimpleStringProperty area = new SimpleStringProperty(String.valueOf(apartmentList.get(i).getArea()));
+            SimpleStringProperty area = new SimpleStringProperty(String.valueOf(Math.round(apartmentList.get(i).getArea() / 3.3058 * 10)/10.0));
 
             myList.add((new Func2TableRowModel(apartmentName,area)));
         }
@@ -228,4 +233,42 @@ public class Func2Controller implements Initializable {
 
         alert.showAndWait();
     }
+
+    public void selectTableView(javafx.scene.input.MouseEvent mouseEvent) {
+        Func2TableRowModel func2TableRowModel = apartment.getSelectionModel().getSelectedItem();
+
+        String apartmentName = func2TableRowModel.apartmentNameProperty().get();
+        float area = 0;
+
+        for(int i = 0; i < apartmentList.size(); i ++) {
+            if(apartmentName.equals(apartmentList.get(i).getApartmentName())) {
+                area = apartmentList.get(i).getArea();
+                break;
+            }
+        }
+
+        ApartmentInfo2 apartmentInfo = new ApartmentInfo2(regionalCode,regionName,apartmentName,area);
+
+        System.out.println("아파트 명 :" + apartmentInfo.getApartmentName());
+        System.out.println("면적 :" + apartmentInfo.getArea());
+
+        Packet packet = new Packet();
+        packet.setProtocolType(ProtocolType.REAL_ESTATE_COMPARE.getType());
+        packet.setProtocolCode(RealEstateCompareCode.REAL_ESTATE_APARTMENT_INFO_REQ.getCode());
+
+        packet.setBody(apartmentInfo);
+        mainController.writePacket(packet);
+
+        showApartmentInfoGraph();
+    }
+
+    private void showApartmentInfoGraph() {
+        Packet sendPacket = null;
+        sendPacket = mainController.readPacket();
+        List<ApartmentInfo3> apartmentList = (java.util.List<ApartmentInfo3>)sendPacket.getBody();
+        System.out.println("그래프 데이터 패킷 무사 도착");
+        System.out.println("면적 : " + apartmentList.get(0).getArea());
+    }
+
+
 }

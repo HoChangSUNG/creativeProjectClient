@@ -8,7 +8,10 @@ import java.io.Serializable;
 
 @Getter @Setter
 @AllArgsConstructor
-public class ApartmentInfo1 implements Serializable {
+
+public class ApartmentInfo2 implements Serializable{
+    private String regionalCode = "";
+    private String regionName = "";
     private String apartmentName = "";
     private float area = 0;
 }
