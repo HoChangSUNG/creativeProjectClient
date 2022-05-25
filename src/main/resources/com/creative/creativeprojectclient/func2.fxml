@@ -22,9 +22,10 @@
       <ComboBox fx:id="sigunguCombo" layoutX="466.0" layoutY="178.0" onAction="#sigungoComboChange" onMouseClicked="#sigungoComboChange" prefWidth="150.0" />
       <ComboBox fx:id="eupMyeonDongCombo" layoutX="685.0" layoutY="178.0" prefWidth="150.0" />
       <Button fx:id="findBtn" layoutX="919.0" layoutY="178.0" mnemonicParsing="false" onAction="#findApart" text="찾기" />
+
       <Label layoutX="247.0" layoutY="287.0" prefHeight="34.0" prefWidth="110.0" style="-fx-font-size: 20;" text="아파트 목록" textAlignment="CENTER" />
 
-      <TableView fx:id="apartment" layoutX="397.0" layoutY="279.0" prefHeight="200.0" prefWidth="419.0">
+      <TableView fx:id="apartment" onMouseClicked="#selectTableView" layoutX="397.0" layoutY="279.0" prefHeight="200.0" prefWidth="419.0">
         <columns>
           <TableColumn fx:id="apartmentName" prefWidth="299.0" styleClass="font-size" text="아파트 이름" />
           <TableColumn fx:id="area" prefWidth="121.0" text="면적" />
