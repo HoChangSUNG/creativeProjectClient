@@ -7,6 +7,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.event.ActionEvent;
@@ -15,11 +17,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import network.Packet;
 import network.ProtocolType;
 import network.protocolCode.RealEstateCompareCode;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -44,9 +49,17 @@ public class Func2Controller implements Initializable {
     @FXML
     private TableColumn<Func2TableRowModel, String> area;
 
-    private List<Sido> regionSelectList;
     @FXML
-    Button test;
+    private LineChart<String, Number> chart;
+    @FXML
+    Label resultDate; //거래 날짜
+    @FXML
+    Label resultAvgPrice; // 거래 평균 가격
+    @FXML
+    Label resultVolume; // 거래량
+
+    private List<Sido> regionSelectList;
+
     private MainController mainController;
     private List<ApartmentInfo1> apartmentList;
     private String regionalCode;
@@ -249,9 +262,6 @@ public class Func2Controller implements Initializable {
 
         ApartmentInfo2 apartmentInfo = new ApartmentInfo2(regionalCode,regionName,apartmentName,area);
 
-        System.out.println("아파트 명 :" + apartmentInfo.getApartmentName());
-        System.out.println("면적 :" + apartmentInfo.getArea());
-
         Packet packet = new Packet();
         packet.setProtocolType(ProtocolType.REAL_ESTATE_COMPARE.getType());
         packet.setProtocolCode(RealEstateCompareCode.REAL_ESTATE_APARTMENT_INFO_REQ.getCode());
@@ -268,7 +278,54 @@ public class Func2Controller implements Initializable {
         List<ApartmentInfo3> apartmentList = (java.util.List<ApartmentInfo3>)sendPacket.getBody();
         System.out.println("그래프 데이터 패킷 무사 도착");
         System.out.println("면적 : " + apartmentList.get(0).getArea());
+        showRegionGraph(apartmentList);
     }
 
+
+    private void showRegionGraph(List<ApartmentInfo3> apartmentInfos) { //지역별 아파트 매매 그래프 정보 그래프에 출력
+
+        chart.getData().clear();
+        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+        chart.setTitle(apartmentInfos.get(0).getApartmentName());
+
+        for (ApartmentInfo3 aptInfo : apartmentInfos) {
+            String date = aptInfo.getDealYear()+"년 " + aptInfo.getDealMonth()+"월";
+            series.getData().add(new XYChart.Data<String, Number>(date, aptInfo.getAveragePrice()));
+
+        }
+
+        series.setName("평균 가격");
+        chart.getData().add(series);
+
+        for (int i = 0; i < chart.getData().size(); i++) {
+            XYChart.Series<String, Number> s = chart.getData().get(i);
+            for (int j = 0; j < s.getData().size(); j++) {
+                XYChart.Data<String, Number> data = s.getData().get(j);
+                ApartmentInfo3 aptInfo = apartmentInfos.get(j);
+                int cur = j;
+                data.getNode().setOnMouseEntered(event -> {
+                    data.getNode().getStyleClass().add("onHover");
+
+                    resultDate.setText(data.getXValue()); // 날짜
+                    resultAvgPrice.setText(String.format("%.0f", data.getYValue())); // 아파트 평균 가격
+                    resultVolume.setText(String.valueOf(aptInfo.getTradingVolume())); // 아파트 거래량
+
+                });
+
+                //Removing class on exit
+                data.getNode().setOnMouseExited(event -> {
+                    data.getNode().getStyleClass().remove("onHover");
+
+                    resultDate.setText(""); // 날짜
+                    resultAvgPrice.setText(""); // 아파트 평균 가격
+                    resultVolume.setText(""); // 아파트 거래량
+                });
+            }
+        }
+
+        chart.getXAxis().setTickLabelsVisible(false);
+        chart.getXAxis().setTickMarkVisible(false);
+
+    }
 
 }
