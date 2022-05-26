@@ -28,7 +28,6 @@ public class MainController implements Initializable {
     private List<Sido> regionSelectList;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("=======MainController 실행됨=======");
 
         //소켓 연결
         initSocket();
@@ -37,7 +36,7 @@ public class MainController implements Initializable {
         regionSelectList = readRegionSelectList();
 
         //첫번째 기능으로 이동
-        moveToFunc1_1Controller();
+        moveToFunc1Controller();
 
 
     }
@@ -45,13 +44,12 @@ public class MainController implements Initializable {
     public List<Sido> getRegionSelectList(){
         return regionSelectList;
     }
-    public void moveToFunc1_1Controller(){
+    public void moveToFunc1Controller(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1_1.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1.fxml"));
             AnchorPane std = fxmlLoader.load();
-            Func1_1Controller controller = fxmlLoader.getController();
+            Func1Controller controller = fxmlLoader.getController();
             controller.setMainController(this);
-            controller.showRegionalEstateAvgData();//1.1기능 실행
 
             panel.getChildren().setAll(std);
 

@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 import static javafx.scene.control.Alert.AlertType.WARNING;
 
-public class Func1_1Controller implements Initializable {
+public class Func1Controller implements Initializable {
 
     @FXML
     AnchorPane panel;
@@ -247,13 +247,12 @@ public class Func1_1Controller implements Initializable {
     }
 
     @FXML
-    public void moveToFunc1_1Controller() {
+    public void moveToFunc1Controller() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1_1.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1.fxml"));
             AnchorPane std = fxmlLoader.load();
-            Func1_1Controller controller = fxmlLoader.getController();
+            Func1Controller controller = fxmlLoader.getController();
             controller.setMainController(mainController);
-            controller.showRegionalEstateAvgData();
 
             panel.getChildren().setAll(std);
 
@@ -278,11 +277,11 @@ public class Func1_1Controller implements Initializable {
     }
 
     @FXML
-    public void moveToFunc3_1Controller() {
+    public void moveToFunc3Controller() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func3_1.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func3.fxml"));
             AnchorPane std = fxmlLoader.load();
-            Func3_1Controller controller = fxmlLoader.getController();
+            Func3Controller controller = fxmlLoader.getController();
             controller.setMainController(mainController);
 
             panel.getChildren().setAll(std);
@@ -290,18 +289,5 @@ public class Func1_1Controller implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void showRegionalEstateAvgData() {//실거래가 기준 지역별 부동산의 평균 가격,등락폭,인구수 제공
-//        Packet packet = new Packet();
-//        packet.setProtocolType(ProtocolType.REAL_ESTATE_INFO.getType());
-//        packet.setProtocolCode(RealEstateInfoCode.SEND_DATA_REQ.getCode());
-//        mainController.writePacket(packet);
-//
-//        Packet sendPacket = mainController.readPacket();
-//        FluctuationRateWrapper data = (FluctuationRateWrapper)sendPacket.getBody();
-//
-//        showApt(data.getApartmentFluctuationRate());
-
     }
 }

@@ -4,7 +4,6 @@ package com.creative.creativeprojectclient;
 import com.creative.creativeprojectclient.datamodel.Func2TableRowModel;
 import domain.*;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
@@ -17,14 +16,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import network.Packet;
 import network.ProtocolType;
 import network.protocolCode.RealEstateCompareCode;
 
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -146,14 +142,12 @@ public class Func2Controller implements Initializable {
 
 
 
-    public void moveToFunc1_1Controller(){
+    public void moveToFunc1Controller(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1_1.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1.fxml"));
             AnchorPane std = fxmlLoader.load();
-            Func1_1Controller controller = fxmlLoader.getController();
+            Func1Controller controller = fxmlLoader.getController();
             controller.setMainController(mainController);
-            controller.showRegionalEstateAvgData();
-
             panel.getChildren().setAll(std);
 
         }catch(Exception e){
@@ -175,11 +169,11 @@ public class Func2Controller implements Initializable {
         }
     }
 
-    public void moveToFunc3_1Controller(){
+    public void moveToFunc3Controller(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func3_1.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func3.fxml"));
             AnchorPane std = fxmlLoader.load();
-            Func3_1Controller controller = fxmlLoader.getController();
+            Func3Controller controller = fxmlLoader.getController();
             controller.setMainController(mainController);
 
             panel.getChildren().setAll(std);

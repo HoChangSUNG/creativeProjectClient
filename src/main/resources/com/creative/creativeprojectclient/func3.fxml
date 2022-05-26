@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="panel" prefHeight="900.0" prefWidth="1700.0" styleClass="..\style\func1_1Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.creative.creativeprojectclient.Func3Controller">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="449.0" layoutY="49.0" prefHeight="40.0" prefWidth="1000.0" text="3. 지역별 아파트 거래량,평당 가격 조회">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <AnchorPane prefHeight="800.0" prefWidth="73.0">
+         <children>
+            <Button contentDisplay="CENTER" layoutY="284.0" mnemonicParsing="false" onAction="#moveToFunc1Controller" prefHeight="34.0" prefWidth="73.0" text="기능1" />
+            <Button contentDisplay="CENTER" layoutY="352.0" mnemonicParsing="false" onAction="#moveToFunc3Controller" prefHeight="34.0" prefWidth="73.0" text="기능3" />
+            <Button contentDisplay="CENTER" layoutY="318.0" mnemonicParsing="false" onAction="#moveToFunc2Controller" prefHeight="34.0" prefWidth="73.0" text="기능2" />
+         </children>
+      </AnchorPane>
+      <ComboBox fx:id="sidoCombo" layoutX="982.0" layoutY="175.0" onAction="#sidoComboChange" prefWidth="150.0" />
+      <ComboBox fx:id="sigunguCombo" layoutX="1156.0" layoutY="175.0" onAction="#sigungoComboChange" onMouseClicked="#sigungoComboChange" prefWidth="150.0" />
+      <ComboBox fx:id="eupMyeonDongCombo" layoutX="1331.0" layoutY="175.0" prefWidth="150.0" />
+      <Button fx:id="findBtn" layoutX="1542.0" layoutY="175.0" mnemonicParsing="false" onAction="#findApart" text="찾기" />
+      <LineChart fx:id="lineChart" layoutX="192.0" layoutY="225.0" prefHeight="357.0" prefWidth="1381.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <BarChart fx:id="barChart" layoutX="192.0" layoutY="619.0" prefHeight="180.0" prefWidth="1381.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>

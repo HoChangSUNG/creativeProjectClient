@@ -1,9 +1,7 @@
 package com.creative.creativeprojectclient;
 
 import body.SendDataResBody;
-import com.creative.creativeprojectclient.datamodel.Func2TableRowModel;
 import domain.*;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,10 +13,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import network.Packet;
 import network.ProtocolType;
-import network.protocolCode.RealEstateCompareCode;
 import network.protocolCode.RealEstateRecommendCode;
 
 import java.net.URL;
@@ -28,7 +24,7 @@ import java.util.stream.Collectors;
 
 import static javafx.scene.control.Alert.AlertType.WARNING;
 
-public class Func3_1Controller implements Initializable {
+public class Func3Controller implements Initializable {
     @FXML
     AnchorPane panel;
     @FXML
@@ -125,13 +121,12 @@ public class Func3_1Controller implements Initializable {
         eupMyeonDongCombo.setItems(eupMyeonDongs);
 
     }
-    public void moveToFunc1_1Controller(){
+    public void moveToFunc1Controller(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1_1.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func1.fxml"));
             AnchorPane std = fxmlLoader.load();
-            Func1_1Controller controller = fxmlLoader.getController();
+            Func1Controller controller = fxmlLoader.getController();
             controller.setMainController(mainController);
-            controller.showRegionalEstateAvgData();
 
             panel.getChildren().setAll(std);
 
@@ -155,11 +150,11 @@ public class Func3_1Controller implements Initializable {
     }
 
     @FXML
-    public void moveToFunc3_1Controller(){
+    public void moveToFunc3Controller(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func3_1.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func3.fxml"));
             AnchorPane std = fxmlLoader.load();
-            Func3_1Controller controller = fxmlLoader.getController();
+            Func3Controller controller = fxmlLoader.getController();
             controller.setMainController(mainController);
 
             panel.getChildren().setAll(std);
@@ -169,20 +164,6 @@ public class Func3_1Controller implements Initializable {
         }
     }
 
-    @FXML
-    public void moveToFunc3_2Controller(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("func3_2.fxml"));
-            AnchorPane std = fxmlLoader.load();
-            Func3_2Controller controller = fxmlLoader.getController();
-            controller.setMainController(mainController);
-
-            panel.getChildren().setAll(std);
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
     public void findApart(ActionEvent event) { // 찾기 버튼 클릭시
         Packet receivePacket = null;
         int sidoIndex = sidoCombo.getSelectionModel().getSelectedIndex();
