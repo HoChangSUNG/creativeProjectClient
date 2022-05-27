@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel" prefHeight="900.0" prefWidth="1700.0" styleClass="..\style\func1_1Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.creative.creativeprojectclient.Func3Controller">
+<AnchorPane fx:id="panel" prefHeight="800.0" prefWidth="1400.0" styleClass="..\style\func1_1Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.creative.creativeprojectclient.Func3Controller">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="449.0" layoutY="49.0" prefHeight="40.0" prefWidth="1000.0" text="3. 지역별 아파트 거래량,면적당 가격 조회">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="344.0" layoutY="46.0" prefHeight="40.0" prefWidth="1000.0" text="3. 지역별 아파트 거래량,면적당 가격 조회">
          <font>
             <Font size="24.0" />
          </font>
@@ -24,11 +24,11 @@
             <Button contentDisplay="CENTER" layoutY="318.0" mnemonicParsing="false" onAction="#moveToFunc2Controller" prefHeight="34.0" prefWidth="73.0" text="기능2" />
          </children>
       </AnchorPane>
-      <ComboBox fx:id="sidoCombo" layoutX="993.0" layoutY="108.0" onAction="#sidoComboChange" prefWidth="150.0" />
-      <ComboBox fx:id="sigunguCombo" layoutX="1167.0" layoutY="108.0" onAction="#sigungoComboChange" onMouseClicked="#sigungoComboChange" prefWidth="150.0" />
-      <ComboBox fx:id="eupMyeonDongCombo" layoutX="1342.0" layoutY="108.0" prefWidth="150.0" />
-      <Button fx:id="findBtn" layoutX="1553.0" layoutY="108.0" mnemonicParsing="false" onAction="#findApart" text="찾기" />
-      <LineChart fx:id="lineChart" layoutX="192.0" layoutY="156.0" prefHeight="357.0" prefWidth="1381.0">
+      <ComboBox fx:id="sidoCombo" layoutX="759.0" layoutY="104.0" onAction="#sidoComboChange" prefWidth="150.0" />
+      <ComboBox fx:id="sigunguCombo" layoutX="933.0" layoutY="104.0" onAction="#sigungoComboChange" onMouseClicked="#sigungoComboChange" prefWidth="150.0" />
+      <ComboBox fx:id="eupMyeonDongCombo" layoutX="1108.0" layoutY="104.0" prefWidth="150.0" />
+      <Button fx:id="findBtn" layoutX="1319.0" layoutY="104.0" mnemonicParsing="false" onAction="#findApart" text="찾기" />
+      <LineChart fx:id="lineChart" layoutX="152.0" layoutY="156.0" prefHeight="330.0" prefWidth="1230.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -36,7 +36,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <BarChart fx:id="barChart" layoutX="192.0" layoutY="566.0" prefHeight="307.0" prefWidth="1381.0">
+      <BarChart fx:id="barChart" layoutX="152.0" layoutY="546.0" prefHeight="282.0" prefWidth="1230.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -44,11 +44,11 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
-      <Label fx:id="resultDate" layoutX="269.0" layoutY="513.0" prefHeight="34.0" prefWidth="134.0" />
-      <Label fx:id="resultAvgPrice" layoutX="465.0" layoutY="513.0" prefHeight="34.0" prefWidth="90.0" />
-      <Label fx:id="resultVolume" layoutX="614.0" layoutY="513.0" prefHeight="34.0" prefWidth="90.0" />
-      <Label layoutX="231.0" layoutY="513.0" prefHeight="34.0" prefWidth="50.0" text="날짜  :" />
-      <Label layoutX="413.0" layoutY="513.0" prefHeight="34.0" prefWidth="60.0" text="평균가격:" />
-      <Label layoutX="571.0" layoutY="513.0" prefHeight="34.0" prefWidth="50.0" text="거래량 :" />
+      <Label fx:id="resultDate" layoutX="250.0" layoutY="486.0" prefHeight="34.0" prefWidth="134.0" />
+      <Label fx:id="resultAvgPrice" layoutX="446.0" layoutY="486.0" prefHeight="34.0" prefWidth="90.0" />
+      <Label fx:id="resultVolume" layoutX="595.0" layoutY="486.0" prefHeight="34.0" prefWidth="90.0" />
+      <Label layoutX="212.0" layoutY="486.0" prefHeight="34.0" prefWidth="50.0" text="날짜  :" />
+      <Label layoutX="394.0" layoutY="486.0" prefHeight="34.0" prefWidth="60.0" text="평균가격:" />
+      <Label layoutX="552.0" layoutY="486.0" prefHeight="34.0" prefWidth="50.0" text="거래량 :" />
    </children>
 </AnchorPane>

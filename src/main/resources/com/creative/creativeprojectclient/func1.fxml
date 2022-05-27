@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel" prefHeight="900.0" prefWidth="1700.0" stylesheets="@../style/func1_1Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.creative.creativeprojectclient.Func1Controller">
+<AnchorPane fx:id="panel" prefHeight="800.0" prefWidth="1400.0" stylesheets="@../style/func1_1Style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.creative.creativeprojectclient.Func1Controller">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="406.0" layoutY="23.0" prefHeight="40.0" prefWidth="1000.0" text="1-1. 지역별 아파트 매매 가격 지수 조회">
          <font>
@@ -23,13 +23,13 @@
             <Button contentDisplay="CENTER" layoutY="318.0" mnemonicParsing="false" onAction="#moveToFunc2Controller" prefHeight="34.0" prefWidth="73.0" text="기능2" />
          </children>
       </AnchorPane>
-      <ComboBox fx:id="sidoCombo" layoutX="1195.0" layoutY="79.0" onAction="#sidoComboChange" prefWidth="150.0" />
-      <ComboBox fx:id="sigunguCombo" layoutX="1373.0" layoutY="79.0" prefWidth="150.0" />
-      <Button fx:id="findSecondGraphBtn" layoutX="1576.0" layoutY="79.0" mnemonicParsing="false" onAction="#findSecondRegion" text="검색" />
-      <ComboBox fx:id="regionCombo" layoutX="1420.0" layoutY="450.0" prefWidth="150.0" />
-      <Button fx:id="findFirstGraphBtn1" layoutX="1576.0" layoutY="450.0" mnemonicParsing="false" onAction="#findFirstRegion" text="검색" />
+      <ComboBox fx:id="sidoCombo" layoutX="885.0" layoutY="90.0" onAction="#sidoComboChange" prefWidth="150.0" />
+      <ComboBox fx:id="sigunguCombo" layoutX="1063.0" layoutY="90.0" prefWidth="150.0" />
+      <Button fx:id="findSecondGraphBtn" layoutX="1266.0" layoutY="90.0" mnemonicParsing="false" onAction="#findSecondRegion" text="검색" />
+      <ComboBox fx:id="regionCombo" layoutX="1110.0" layoutY="450.0" prefWidth="150.0" />
+      <Button fx:id="findFirstGraphBtn1" layoutX="1266.0" layoutY="450.0" mnemonicParsing="false" onAction="#findFirstRegion" text="검색" />
 
-      <LineChart fx:id="firstChart" layoutX="99.0" layoutY="484.0" prefHeight="352.0" prefWidth="1541.0">
+      <LineChart fx:id="firstChart" layoutX="95.0" layoutY="457.0" prefHeight="302.0" prefWidth="1240.0">
          <xAxis>
             <CategoryAxis prefWidth="744.0" side="BOTTOM">
                <tickLabelFont>
@@ -40,13 +40,13 @@
             <NumberAxis side="LEFT" />
          </yAxis>
       </LineChart>
-      <Label fx:id="firstResultDate" layoutX="137.0" layoutY="845.0" prefHeight="34.0" prefWidth="134.0" />
-      <Label fx:id="firstResultIndices" layoutX="307.0" layoutY="845.0" prefHeight="34.0" prefWidth="90.0" />
-      <Label fx:id="firstResultFluctuationRate" layoutX="427.0" layoutY="845.0" prefHeight="34.0" prefWidth="90.0" />
-      <Label layoutX="99.0" layoutY="845.0" prefHeight="34.0" prefWidth="50.0" text="날짜  :" />
-      <Label layoutX="273.0" layoutY="845.0" prefHeight="34.0" prefWidth="50.0" text="지수 :" />
-      <Label layoutX="381.0" layoutY="845.0" prefHeight="34.0" prefWidth="50.0" text="등락폭 :" />
-      <LineChart fx:id="secondChart" layoutX="80.0" layoutY="101.0" prefHeight="337.0" prefWidth="1541.0">
+      <Label fx:id="firstResultDate" layoutX="133.0" layoutY="756.0" prefHeight="34.0" prefWidth="134.0" />
+      <Label fx:id="firstResultIndices" layoutX="303.0" layoutY="756.0" prefHeight="34.0" prefWidth="90.0" />
+      <Label fx:id="firstResultFluctuationRate" layoutX="423.0" layoutY="756.0" prefHeight="34.0" prefWidth="90.0" />
+      <Label layoutX="95.0" layoutY="756.0" prefHeight="34.0" prefWidth="50.0" text="날짜  :" />
+      <Label layoutX="269.0" layoutY="756.0" prefHeight="34.0" prefWidth="50.0" text="지수 :" />
+      <Label layoutX="377.0" layoutY="756.0" prefHeight="34.0" prefWidth="50.0" text="등락폭 :" />
+      <LineChart fx:id="secondChart" layoutX="80.0" layoutY="101.0" prefHeight="302.0" prefWidth="1270.0">
          <xAxis>
             <CategoryAxis prefWidth="744.0" side="BOTTOM">
                <tickLabelFont>
@@ -58,12 +58,12 @@
             <NumberAxis side="LEFT" />
          </yAxis>
       </LineChart>
-      <Label fx:id="secondResultDate" layoutX="162.0" layoutY="427.0" prefHeight="34.0" prefWidth="134.0" />
-      <Label fx:id="secondResultIndices" layoutX="332.0" layoutY="427.0" prefHeight="34.0" prefWidth="90.0" />
-      <Label fx:id="secondResultFluctuationRate" layoutX="452.0" layoutY="427.0" prefHeight="34.0" prefWidth="90.0" />
-      <Label layoutX="124.0" layoutY="427.0" prefHeight="34.0" prefWidth="50.0" text="날짜  :" />
-      <Label layoutX="298.0" layoutY="427.0" prefHeight="34.0" prefWidth="50.0" text="지수 :" />
-      <Label layoutX="406.0" layoutY="427.0" prefHeight="34.0" prefWidth="50.0" text="등락폭 :" />
+      <Label fx:id="secondResultDate" layoutX="158.0" layoutY="400.0" prefHeight="34.0" prefWidth="134.0" />
+      <Label fx:id="secondResultIndices" layoutX="328.0" layoutY="400.0" prefHeight="34.0" prefWidth="90.0" />
+      <Label fx:id="secondResultFluctuationRate" layoutX="448.0" layoutY="400.0" prefHeight="34.0" prefWidth="90.0" />
+      <Label layoutX="120.0" layoutY="400.0" prefHeight="34.0" prefWidth="50.0" text="날짜  :" />
+      <Label layoutX="294.0" layoutY="400.0" prefHeight="34.0" prefWidth="50.0" text="지수 :" />
+      <Label layoutX="402.0" layoutY="400.0" prefHeight="34.0" prefWidth="50.0" text="등락폭 :" />
 
    </children>
 </AnchorPane>
