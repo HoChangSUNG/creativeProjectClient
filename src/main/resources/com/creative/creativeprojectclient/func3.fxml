@@ -36,7 +36,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <BarChart fx:id="barChart" layoutX="152.0" layoutY="546.0" prefHeight="282.0" prefWidth="1230.0">
+      <BarChart fx:id="barChart" layoutX="152.0" layoutY="517.0" prefHeight="262.0" prefWidth="1230.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
