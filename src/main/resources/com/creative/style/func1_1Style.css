@@ -6,3 +6,7 @@
 .onHover{
     -fx-background-color: ORANGE;
 }
+
+.lineColor{
+    -fx-stroke:white;
+}
