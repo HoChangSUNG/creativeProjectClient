@@ -221,9 +221,9 @@ public class Func2Controller implements Initializable {
 
         for (int i=0;i<apartmentList.size();i++){
             SimpleStringProperty apartmentName = new SimpleStringProperty(apartmentList.get(i).getApartmentName());
-            SimpleStringProperty area = new SimpleStringProperty(String.valueOf(Math.round(apartmentList.get(i).getArea() / 3.3058 * 10)/10.0));
-
-            myList.add((new Func2TableRowModel(apartmentName,area)));
+//            SimpleStringProperty area = new SimpleStringProperty(String.valueOf(Math.round(apartmentList.get(i).getArea() / 3.3058 * 10)/10.0));
+            SimpleStringProperty area = new SimpleStringProperty(String.valueOf(apartmentList.get(i).getArea()));
+            myList.add((new Func2TableRowModel(apartmentName, area)));
         }
 
         apartment.setItems(myList);
@@ -245,14 +245,7 @@ public class Func2Controller implements Initializable {
         Func2TableRowModel func2TableRowModel = apartment.getSelectionModel().getSelectedItem();
 
         String apartmentName = func2TableRowModel.apartmentNameProperty().get();
-        float area = 0;
-
-        for(int i = 0; i < apartmentList.size(); i ++) {
-            if(apartmentName.equals(apartmentList.get(i).getApartmentName())) {
-                area = apartmentList.get(i).getArea();
-                break;
-            }
-        }
+        float area = Float.parseFloat(func2TableRowModel.areaProperty().get());
 
         ApartmentInfo2 apartmentInfo = new ApartmentInfo2(regionalCode,regionName,apartmentName,area);
 

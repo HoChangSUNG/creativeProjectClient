@@ -35,7 +35,7 @@
       <TableView fx:id="apartment" layoutX="649.0" layoutY="188.0" onMouseClicked="#selectTableView" prefHeight="200.0" prefWidth="419.0">
         <columns>
           <TableColumn fx:id="apartmentName" prefWidth="299.0" styleClass="font-size" text="아파트 이름" />
-          <TableColumn fx:id="area" prefWidth="121.0" text="면적" />
+          <TableColumn fx:id="area" prefWidth="121.0" text="면적(m^2)" />
         </columns>
       </TableView>
       <LineChart fx:id="chart" layoutX="109.0" layoutY="461.0" prefHeight="339.0" prefWidth="1559.0">
