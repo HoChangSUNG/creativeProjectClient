@@ -40,7 +40,12 @@ public class Func3Controller implements Initializable {
     @FXML
     BarChart barChart;
     @FXML
-    Label result;
+    Label resultDate; //거래 날짜
+    @FXML
+    Label resultAvgPrice; // 거래 평균 가격
+    @FXML
+    Label resultVolume; // 거래량
+
     private List<Sido> regionSelectList;
     private MainController mainController;
     public void setMainController(MainController mainController) {
@@ -164,7 +169,7 @@ public class Func3Controller implements Initializable {
         }
     }
 
-    public void findApart(ActionEvent event) { // 찾기 버튼 클릭시
+    public void findApart() { // 찾기 버튼 클릭시
         Packet receivePacket = null;
         int sidoIndex = sidoCombo.getSelectionModel().getSelectedIndex();
         int sigunguIndex = sigunguCombo.getSelectionModel().getSelectedIndex();
@@ -205,6 +210,37 @@ public class Func3Controller implements Initializable {
         lineChart.getData().add(seriesline);
         barChart.getData().add(seriesbar);
 
+        for (int i = 0; i < lineChart.getData().size(); i++) {
+            XYChart.Series<String,Double> s = (XYChart.Series<String, Double>) lineChart.getData().get(i);
+            for (int j = 0; j < s.getData().size(); j++) {
+                XYChart.Data<String, Double> data = s.getData().get(j);
+                AverageAreaAmoumtApartmentData aptInfo = averageAreaAmoumtApartmentData.get(j);
+                int cur = j;
+                data.getNode().setOnMouseEntered(event -> {
+                    data.getNode().getStyleClass().add("onHover");
+
+                    resultDate.setText(data.getXValue()); // 날짜
+                    resultAvgPrice.setText(String.format("%.0f만원", data.getYValue())); // 아파트 평균 가격
+                    resultVolume.setText(String.valueOf(aptInfo.getAverageCnt())+"개"); // 아파트 거래량
+
+                });
+
+                //Removing class on exit
+                data.getNode().setOnMouseExited(event -> {
+                    data.getNode().getStyleClass().remove("onHover");
+
+                    resultDate.setText(""); // 날짜
+                    resultAvgPrice.setText(""); // 아파트 평균 가격
+                    resultVolume.setText(""); // 아파트 거래량
+                });
+            }
+        }
+
+        lineChart.getXAxis().setTickLabelsVisible(false);
+        lineChart.getXAxis().setTickMarkVisible(false);
+
+        barChart.getXAxis().setTickLabelsVisible(false);
+        barChart.getXAxis().setTickMarkVisible(false);
     }
 
 
