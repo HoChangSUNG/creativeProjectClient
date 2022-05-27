@@ -13,6 +13,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import network.Packet;
 import network.ProtocolType;
 import network.protocolCode.RealEstateRecommendCode;
@@ -226,9 +228,6 @@ public class Func3Controller implements Initializable {
         SendDataResBody sendDataResBody = (SendDataResBody) receivePacket.getBody();
         List<AverageAreaAmoumtApartmentData> averageAreaAmoumtApartmentData = sendDataResBody.getAverageAreaAmoumtApartmentList();
 
-//        lineChart.getData().clear();
-//        barChart.getData().clear();
-
         XYChart.Series<String, Double> seriesline = new XYChart.Series<String, Double>();
         XYChart.Series<String, Integer> seriesbar = new XYChart.Series<String, Integer>();
 
@@ -236,7 +235,9 @@ public class Func3Controller implements Initializable {
         seriesbar.setName(eupMyeonDong.getRegionName()+ " 거래량");
         for (AverageAreaAmoumtApartmentData a : averageAreaAmoumtApartmentData) {
             XYChart.Data<String, Double> data = new XYChart.Data<>((a.getDealYear() + "년 " + a.getDealMonth() + "월"), a.getAverageAreaAmoumt());
-            data.setExtraValue(eupMyeonDong.getRegionName());
+
+            data.setExtraValue(new VolumeAndRegionName(eupMyeonDong.getRegionName(),a.getAverageCnt()));
+
             seriesline.getData().add(data);
             seriesbar.getData().add(new XYChart.Data<String, Integer>((a.getDealYear() + "년 " + a.getDealMonth()+"월"), a.getAverageCnt()));
 
@@ -252,11 +253,12 @@ public class Func3Controller implements Initializable {
                 int cur = j;
                 data.getNode().setOnMouseEntered(event -> {
                     data.getNode().getStyleClass().add("onHover");
+                    VolumeAndRegionName extraValue = (VolumeAndRegionName) data.getExtraValue(); // 거래량, 지역 저장 dto
 
                     resultDate.setText(data.getXValue()); // 날짜
                     resultAvgPrice.setText(String.format("%.0f만원", data.getYValue())); // 평균 가격
-                    resultVolume.setText(String.valueOf(aptInfo.getAverageCnt())+"개"); // 거래량
-                    selectRegion.setText((String)data.getExtraValue()); // 지역명
+                    resultVolume.setText(String.valueOf(extraValue.getVolume())+"개"); // 거래량
+                    selectRegion.setText(extraValue.getRegionName()); // 지역명
                 });
 
                 //Removing class on exit
@@ -296,5 +298,12 @@ public class Func3Controller implements Initializable {
         lineChart.getData().clear();
         barChart.getData().clear();
         initGraph();
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class VolumeAndRegionName{
+        private String regionName;// 지역 이름
+        private int volume;//거래량
     }
 }
