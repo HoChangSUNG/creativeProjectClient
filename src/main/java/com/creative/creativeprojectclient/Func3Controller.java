@@ -18,6 +18,7 @@ import network.ProtocolType;
 import network.protocolCode.RealEstateRecommendCode;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -45,7 +46,8 @@ public class Func3Controller implements Initializable {
     Label resultAvgPrice; // 거래 평균 가격
     @FXML
     Label resultVolume; // 거래량
-
+    @FXML
+    Label selectRegion; //지역명
     private List<Sido> regionSelectList;
     private MainController mainController;
     public void setMainController(MainController mainController) {
@@ -56,7 +58,7 @@ public class Func3Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        initGraph();
     }
     private void initRegionSelectCombo(){// 시도 콤보 박스 초기화
         regionSelectList = mainController.getRegionSelectList();// 지역 리스트 초기화
@@ -168,7 +170,36 @@ public class Func3Controller implements Initializable {
             e.printStackTrace();
         }
     }
+    public void initGraph(){
+        lineChart.getData().clear();
+        barChart.getData().clear();
 
+        XYChart.Series<String, Double> seriesline = new XYChart.Series<String, Double>();
+        XYChart.Series<String, Integer> seriesbar = new XYChart.Series<String, Integer>();
+
+        LocalDate startDate = LocalDate.of(2011, 1, 1);
+        LocalDate endDate = LocalDate.of(2022, 4, 1);
+
+        for(;!startDate.isAfter(endDate);startDate = startDate.plusMonths(1)){
+            int year = startDate.getYear();
+            int month = startDate.getMonth().getValue();
+            seriesline.getData().add(new XYChart.Data<String, Double>((year + "년 " + month+ "월"), 0D));
+            seriesbar.getData().add(new XYChart.Data<String, Integer>((year + "년 " + month+ "월"), 0));
+        }
+        lineChart.getData().add(seriesline);
+        barChart.getData().add(seriesbar);
+
+        lineChart.getXAxis().setTickLabelsVisible(false);
+        lineChart.getXAxis().setTickMarkVisible(false);
+        lineChart.getXAxis().setOpacity(0);
+
+        barChart.getXAxis().setTickLabelsVisible(false);
+        barChart.getXAxis().setTickMarkVisible(false);
+        barChart.getXAxis().setOpacity(0);
+
+
+
+    }
     public void findApart() { // 찾기 버튼 클릭시
         Packet receivePacket = null;
         int sidoIndex = sidoCombo.getSelectionModel().getSelectedIndex();
@@ -195,17 +226,20 @@ public class Func3Controller implements Initializable {
         SendDataResBody sendDataResBody = (SendDataResBody) receivePacket.getBody();
         List<AverageAreaAmoumtApartmentData> averageAreaAmoumtApartmentData = sendDataResBody.getAverageAreaAmoumtApartmentList();
 
-        lineChart.getData().clear();
-        barChart.getData().clear();
+//        lineChart.getData().clear();
+//        barChart.getData().clear();
 
         XYChart.Series<String, Double> seriesline = new XYChart.Series<String, Double>();
         XYChart.Series<String, Integer> seriesbar = new XYChart.Series<String, Integer>();
 
-        seriesline.setName("평단가 차트");
-        seriesbar.setName("거래량 차트");
+        seriesline.setName(eupMyeonDong.getRegionName()+ " 평단가");
+        seriesbar.setName(eupMyeonDong.getRegionName()+ " 거래량");
         for (AverageAreaAmoumtApartmentData a : averageAreaAmoumtApartmentData) {
-            seriesline.getData().add(new XYChart.Data<String, Double>((a.getDealYear() + "." + a.getDealMonth()), a.getAverageAreaAmoumt()));
-            seriesbar.getData().add(new XYChart.Data<String, Integer>((a.getDealYear() + "." + a.getDealMonth()), a.getAverageCnt()));
+            XYChart.Data<String, Double> data = new XYChart.Data<>((a.getDealYear() + "년 " + a.getDealMonth() + "월"), a.getAverageAreaAmoumt());
+            data.setExtraValue(eupMyeonDong.getRegionName());
+            seriesline.getData().add(data);
+            seriesbar.getData().add(new XYChart.Data<String, Integer>((a.getDealYear() + "년 " + a.getDealMonth()+"월"), a.getAverageCnt()));
+
         }
         lineChart.getData().add(seriesline);
         barChart.getData().add(seriesbar);
@@ -220,9 +254,9 @@ public class Func3Controller implements Initializable {
                     data.getNode().getStyleClass().add("onHover");
 
                     resultDate.setText(data.getXValue()); // 날짜
-                    resultAvgPrice.setText(String.format("%.0f만원", data.getYValue())); // 아파트 평균 가격
-                    resultVolume.setText(String.valueOf(aptInfo.getAverageCnt())+"개"); // 아파트 거래량
-
+                    resultAvgPrice.setText(String.format("%.0f만원", data.getYValue())); // 평균 가격
+                    resultVolume.setText(String.valueOf(aptInfo.getAverageCnt())+"개"); // 거래량
+                    selectRegion.setText((String)data.getExtraValue()); // 지역명
                 });
 
                 //Removing class on exit
@@ -230,8 +264,9 @@ public class Func3Controller implements Initializable {
                     data.getNode().getStyleClass().remove("onHover");
 
                     resultDate.setText(""); // 날짜
-                    resultAvgPrice.setText(""); // 아파트 평균 가격
-                    resultVolume.setText(""); // 아파트 거래량
+                    resultAvgPrice.setText(""); // 평균 가격
+                    resultVolume.setText(""); //  거래량
+                    selectRegion.setText(""); // 지역명
                 });
             }
         }
@@ -255,5 +290,11 @@ public class Func3Controller implements Initializable {
             alert.setHeaderText("읍/면/동을 입력해주세요");
 
         alert.showAndWait();
+    }
+
+    public void reset(ActionEvent actionEvent) {
+        lineChart.getData().clear();
+        barChart.getData().clear();
+        initGraph();
     }
 }

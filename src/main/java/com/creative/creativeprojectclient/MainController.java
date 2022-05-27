@@ -62,8 +62,8 @@ public class MainController implements Initializable {
         InetAddress ip = null;
         int ServerPortNum = 5000;
         try {
-            ip = InetAddress.getByName("192.168.226.44");
-//            ip = InetAddress.getByName("localhost");
+            //ip = InetAddress.getByName("192.168.226.44");
+            ip = InetAddress.getByName("localhost");
             this.socket= new Socket(ip, ServerPortNum);// 소켓 연결
             os = new ObjectOutputStream(socket.getOutputStream());
             is = new ObjectInputStream(socket.getInputStream());
