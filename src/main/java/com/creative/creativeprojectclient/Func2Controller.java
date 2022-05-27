@@ -294,8 +294,8 @@ public class Func2Controller implements Initializable {
                     data.getNode().getStyleClass().add("onHover");
 
                     resultDate.setText(data.getXValue()); // 날짜
-                    resultAvgPrice.setText(String.format("%.0f", data.getYValue())); // 아파트 평균 가격
-                    resultVolume.setText(String.valueOf(aptInfo.getTradingVolume())); // 아파트 거래량
+                    resultAvgPrice.setText(String.format("%.0f만원", data.getYValue())); // 아파트 평균 가격
+                    resultVolume.setText(String.valueOf(aptInfo.getTradingVolume())+"개"); // 아파트 거래량
 
                 });
 
