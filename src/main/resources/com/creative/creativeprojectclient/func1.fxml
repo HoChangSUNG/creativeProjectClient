@@ -16,13 +16,6 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <AnchorPane prefHeight="800.0" prefWidth="73.0">
-         <children>
-            <Button contentDisplay="CENTER" layoutY="284.0" mnemonicParsing="false" onAction="#moveToFunc1Controller" prefHeight="34.0" prefWidth="73.0" text="기능1" />
-            <Button contentDisplay="CENTER" layoutY="352.0" mnemonicParsing="false" onAction="#moveToFunc3Controller" prefHeight="34.0" prefWidth="73.0" text="기능3" />
-            <Button contentDisplay="CENTER" layoutY="318.0" mnemonicParsing="false" onAction="#moveToFunc2Controller" prefHeight="34.0" prefWidth="73.0" text="기능2" />
-         </children>
-      </AnchorPane>
       <ComboBox fx:id="sidoCombo" layoutX="887.0" layoutY="425.0" onAction="#sidoComboChange" prefWidth="150.0" />
       <ComboBox fx:id="sigunguCombo" layoutX="1065.0" layoutY="425.0" prefWidth="150.0" />
       <Button fx:id="findSecondGraphBtn" layoutX="1268.0" layoutY="425.0" mnemonicParsing="false" onAction="#findSecondRegion" text="검색" />
@@ -64,6 +57,9 @@
       <Label layoutX="122.0" layoutY="735.0" prefHeight="34.0" prefWidth="50.0" text="날짜  :" />
       <Label layoutX="296.0" layoutY="735.0" prefHeight="34.0" prefWidth="50.0" text="지수 :" />
       <Label layoutX="404.0" layoutY="735.0" prefHeight="34.0" prefWidth="50.0" text="등락폭 :" />
+      <Button contentDisplay="CENTER" layoutX="24.0" layoutY="26.0" mnemonicParsing="false" onAction="#moveToFunc1Controller" prefHeight="34.0" prefWidth="103.0" text="매매 가격 지수" />
+      <Button contentDisplay="CENTER" layoutX="271.0" layoutY="26.0" mnemonicParsing="false" onAction="#moveToFunc3Controller" prefHeight="34.0" prefWidth="125.0" text="지역면적단가" />
+      <Button contentDisplay="CENTER" layoutX="151.0" layoutY="26.0" mnemonicParsing="false" onAction="#moveToFunc2Controller" prefHeight="34.0" prefWidth="103.0" text="아파트 조회" />
 
    </children>
 </AnchorPane>
