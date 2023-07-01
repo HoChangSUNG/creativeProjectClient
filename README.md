@@ -4,7 +4,8 @@
 [클라이언트 github](https://github.com/HoChangSUNG/creativeProjectClient)
 
 서버 사용 언어: java, mysql  
-클라이언트 사용 언어 : java(java fx)
+클라이언트 사용 언어 : java(java fx)  
+프로젝트 기간 : 2022.04.18 ~ 2022.05.27  
 
 [주제 제안서 및 제약 사항](https://velog.io/@hochang/%EC%A3%BC%EC%A0%9C-%EC%A0%9C%EC%95%88%EC%84%9C)  
 [중간 발표](https://velog.io/@hochang/%EC%B0%BD%EC%9D%98%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%A4%91%EA%B0%84-%EB%B0%9C%ED%91%9C)  
